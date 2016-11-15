@@ -16,7 +16,7 @@ namespace Battleship.Test
         [TestMethod]
         public void CreateEmptyCell()
         {
-
+            Cell test = new Cell();
         }
 
         [TestMethod]
@@ -32,6 +32,7 @@ namespace Battleship.Test
         }
 
         [TestMethod]
+        [ExpectedException(typeof(Exception), "Can't start without placing all ships.")]
         public void ThrowIfStartedWithoutFullTeam()
         {
 
@@ -50,12 +51,14 @@ namespace Battleship.Test
         }
 
         [TestMethod]
+        [ExpectedException(typeof(Exception), "Not a valid ship placement.")]
         public void ThrowOnInvalidPlacement()
         {
 
         }
 
         [TestMethod]
+        [ExpectedException(typeof(Exception), "Already fired at these coordinates.")]
         public void ThrowOnRedundantShot()
         {
 
