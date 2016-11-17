@@ -1,1 +1,2 @@
 C:\gitProjects\Battleship\Battleship\bin\Debug\Battleship.exe.config
+C:\gitProjects\BTW-Battleship\Battleship\bin\Debug\Battleship.exe.config

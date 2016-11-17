@@ -76,6 +76,9 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.button32 = new System.Windows.Forms.Button();
+            this.button33 = new System.Windows.Forms.Button();
+            this.button34 = new System.Windows.Forms.Button();
+            this.button35 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -85,6 +88,7 @@
             this.button1.Size = new System.Drawing.Size(24, 23);
             this.button1.TabIndex = 0;
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label1
             // 
@@ -478,11 +482,44 @@
             this.button32.TabIndex = 24;
             this.button32.UseVisualStyleBackColor = true;
             // 
+            // button33
+            // 
+            this.button33.Location = new System.Drawing.Point(375, 28);
+            this.button33.Name = "button33";
+            this.button33.Size = new System.Drawing.Size(99, 22);
+            this.button33.TabIndex = 48;
+            this.button33.Text = "New Game";
+            this.button33.UseVisualStyleBackColor = true;
+            this.button33.Click += new System.EventHandler(this.button33_Click);
+            // 
+            // button34
+            // 
+            this.button34.Location = new System.Drawing.Point(375, 57);
+            this.button34.Name = "button34";
+            this.button34.Size = new System.Drawing.Size(99, 22);
+            this.button34.TabIndex = 49;
+            this.button34.Text = "Load Game";
+            this.button34.UseVisualStyleBackColor = true;
+            this.button34.Click += new System.EventHandler(this.button34_Click);
+            // 
+            // button35
+            // 
+            this.button35.Location = new System.Drawing.Point(375, 86);
+            this.button35.Name = "button35";
+            this.button35.Size = new System.Drawing.Size(99, 22);
+            this.button35.TabIndex = 50;
+            this.button35.Text = "Save Game";
+            this.button35.UseVisualStyleBackColor = true;
+            this.button35.Click += new System.EventHandler(this.button35_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(358, 172);
+            this.ClientSize = new System.Drawing.Size(503, 165);
+            this.Controls.Add(this.button35);
+            this.Controls.Add(this.button34);
+            this.Controls.Add(this.button33);
             this.Controls.Add(this.button17);
             this.Controls.Add(this.button18);
             this.Controls.Add(this.button19);
@@ -532,7 +569,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "BattleShip";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -588,6 +625,9 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Button button32;
+        private System.Windows.Forms.Button button33;
+        private System.Windows.Forms.Button button34;
+        private System.Windows.Forms.Button button35;
     }
 }
 
