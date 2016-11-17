@@ -9,15 +9,24 @@ namespace Battleship
     public class Board
     {
         private int[,] array = new int[10, 10];
+        private Ship twoPlace; //create in Add method.
+        //etc
 
         public Board()
         {
-            //for col
-            for (int i = 1; i <= 10; i++)
+            // 0 = no info
+            // 1 = unhit ship
+
+            // 2 = miss
+            // 3 = hit ship
+
+            for (int col = 1; col <= 10; col++)
             {
-               
-                array[col, i] = 0;
-            } // 0 = no info
+                for (int row = 1; row <= 10; row++)
+                {
+                    array[col, row] = 0;
+                } // 0 = no info
+            }
         }
 
         public int GetCellStatus(int x, int y)
@@ -25,9 +34,41 @@ namespace Battleship
             return array[x,y];
         }
 
-        public void Shot ()
+        public void AddShip(Ship ship)
         {
-            //need to set shots?
+            int [] coords = ship.GetCoords();
+            //x,y - x,y
+            //loop to determine all coords
+            //loop to write all values to array
+        }
+
+        public void Shot(int x, int y)
+        {
+            int status = array[x, y];
+
+            if (status > 1)
+            {
+                throw new NotImplementedException();
+                //already a shot here.
+            }
+            else if (status == 1)
+            {
+                //hit
+                array[x, y] = 3;
+                //check for ship
+                bool isDestroyed = shipx.Hit();
+            }
+            else if (status == 0)
+            {
+                //miss
+                array[x, y] = 2;
+            }
+            else
+            {
+                Console.WriteLine("Out of range.");
+                throw new NotImplementedException();
+            }
+            
         }
     }
 }
