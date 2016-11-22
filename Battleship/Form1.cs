@@ -40,6 +40,12 @@ namespace Battleship
 
             Board leftBoard = new Board();
             Board rightBoard = new Board();
+
+            Ship ship5Place = addShip.GetNewShip(5);
+            Ship ship4Place = addShip.GetNewShip(4);
+            Ship ship3Place = addShip.GetNewShip(3);
+            Ship ship3Place2 = addShip.GetNewShip(3);
+            Ship ship2Place = addShip.GetNewShip(2);
         }
 
         private void button34_Click(object sender, EventArgs e) //load game button
