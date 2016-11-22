@@ -17,36 +17,43 @@ namespace Battleship
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button_Click(object sender, EventArgs e)
         {
-            Control board = ((Control)sender);
-            switch (board.BackColor.Name)
+            var button = (Button)sender;
+            switch (button.BackColor.Name)
             {
                 case "Miss":
-                    board.BackColor = Color.White;
+                    button.BackColor = Color.White;
                     break;
                 case "Hit":
-                    board.BackColor = Color.Red;
+                    button.BackColor = Color.Red;
                     break;
                 default:
-                    board.BackColor = Color.Gray;
+                    button.BackColor = Color.Gray;
                     break;
             }
         }
 
         private void button33_Click(object sender, EventArgs e) //new game button
         {
-            //NewGame();
+            AddShipsForm addShip = new AddShipsForm();
+
+            Board leftBoard = new Board();
+            Board rightBoard = new Board();
         }
 
         private void button34_Click(object sender, EventArgs e) //load game button
         {
-            //LoadGame();
+            int[,] array;
+
+            //Board leftBoard = new Board(array);
+            //Board rightBoard = new Board(array);
         }
 
         private void button35_Click(object sender, EventArgs e) //save game button
         {
             //SaveGame();
         }
+
     }
 }
