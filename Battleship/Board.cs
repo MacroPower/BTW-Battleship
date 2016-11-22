@@ -9,8 +9,6 @@ namespace Battleship
     public class Board
     {
         private int[,] array = new int[10, 10];
-        //private Ship twoPlace; //create in Add method.
-        //etc
 
         public Board()
         {
@@ -41,10 +39,28 @@ namespace Battleship
 
         public void AddShip(Ship ship)
         {
-            int [] coords = ship.GetCoords();
+            int[] coords = ship.GetCoords();
             //x,y - x,y
             //loop to determine all coords
             //loop to write all values to array
+            if (coords[0] == coords[2])
+            {
+                for (int top = coords[1]; top >= coords[3]; top++)
+                {
+                    array[coords[0], top] = 1;
+                }
+            }
+            else if (coords[1] == coords[3])
+            {
+                for (int top = coords[0]; top >= coords[2]; top++)
+                {
+                    array[top, coords[1]] = 1;
+                }
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
         }
 
         public void Shot(int x, int y)
