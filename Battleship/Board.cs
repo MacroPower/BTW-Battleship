@@ -9,7 +9,7 @@ namespace Battleship
     public class Board
     {
         private int[,] array = new int[10, 10];
-        private Ship twoPlace; //create in Add method.
+        //private Ship twoPlace; //create in Add method.
         //etc
 
         public Board()
@@ -27,6 +27,11 @@ namespace Battleship
                     array[col, row] = 0;
                 } // 0 = no info
             }
+        }
+
+        public Board(int[,]load)
+        {
+            array = load;
         }
 
         public int GetCellStatus(int x, int y)
@@ -55,8 +60,6 @@ namespace Battleship
             {
                 //hit
                 array[x, y] = 3;
-                //check for ship
-                bool isDestroyed = shipx.Hit();
             }
             else if (status == 0)
             {
