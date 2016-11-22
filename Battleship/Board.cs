@@ -45,14 +45,14 @@ namespace Battleship
             //loop to write all values to array
             if (coords[0] == coords[2])
             {
-                for (int top = coords[1]; top >= coords[3]; top++)
+                for (int top = coords[1]; top >= coords[3]; top--) //might be an infinite loop idk
                 {
                     array[coords[0], top] = 1;
                 }
             }
             else if (coords[1] == coords[3])
             {
-                for (int top = coords[0]; top >= coords[2]; top++)
+                for (int top = coords[0]; top >= coords[2]; top--) //same goes
                 {
                     array[top, coords[1]] = 1;
                 }
