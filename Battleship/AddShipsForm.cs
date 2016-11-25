@@ -70,6 +70,21 @@ namespace Battleship
                 yEnd = int.Parse(button.Name[4].ToString());
                 clicked = false;
 
+                if (xStart > xEnd)
+                {
+                    int s = xStart;
+                    xStart = xEnd;
+                    xEnd = s;
+                }
+
+                if (yStart > yEnd)
+                {
+                    int s = yStart;
+                    yStart = yEnd;
+                    yEnd = s;
+                }
+
+
                 if (xStart == xEnd)
                 {
                     for (int top = yStart; top <= yEnd; top++)
@@ -111,6 +126,8 @@ namespace Battleship
                         s.Enabled = true;
                     }
                 }
+
+                
 
                 ship = new Ship(sSize, xStart, xEnd, yStart, yEnd);
                 this.Close();

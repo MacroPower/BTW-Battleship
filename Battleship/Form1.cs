@@ -74,13 +74,13 @@ namespace Battleship
 
             //TODO: Loop all this.
             Ship ship5Place = addShipL.GetNewShip(5);
-           // Ship ship4Place = addShipL.GetNewShip(4);
+            Ship ship4Place = addShipL.GetNewShip(4);
             //Ship ship3Place = addShip.GetNewShip(3);
             //Ship ship3Place2 = addShip.GetNewShip(3);
             //Ship ship2Place = addShipL.GetNewShip(2);
 
             leftBoard.AddShip(ship5Place);
-            //leftBoard.AddShip(ship4Place);
+            leftBoard.AddShip(ship4Place);
             //leftBoard.AddShip(ship3Place);
             //leftBoard.AddShip(ship3Place2);
             //leftBoard.AddShip(ship2Place);
