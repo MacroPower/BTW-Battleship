@@ -155,15 +155,44 @@ namespace Battleship
 
         private void btnLoadGame_Click(object sender, EventArgs e)
         {
-            int[,] array;
+            Reset();
+
+            string[] lines = System.IO.File.ReadLines("C:\\Users\\macropower\\Documents\\test.txt").ToArray();
 
             //Board leftBoard = new Board(array);
             //Board rightBoard = new Board(array);
+
+            //update all buttons based on array.
+
+            //need to add additional details for ships, current turn, etc.
         }
 
         private void btnSaveGame_Click(object sender, EventArgs e)
         {
+            List<string> linesToWrite = new List<string>();
+            for (int rowIndex = 0; rowIndex < 10; rowIndex++)
+            {
+                StringBuilder line = new StringBuilder();
+                for (int colIndex = 0; colIndex < 10; colIndex++)
+                    line.Append(rightBoard.GetCellStatus(rowIndex, colIndex));
+                linesToWrite.Add(line.ToString());
+            }
 
+            linesToWrite.Add(",");
+
+            for (int rowIndex = 0; rowIndex < 10; rowIndex++)
+            {
+                StringBuilder line = new StringBuilder();
+                for (int colIndex = 0; colIndex < 10; colIndex++)
+                    line.Append(leftBoard.GetCellStatus(rowIndex, colIndex));
+                linesToWrite.Add(line.ToString());
+            }
+
+            linesToWrite.Add(",");
+
+            linesToWrite.Add("metadata");
+
+            System.IO.File.WriteAllLines("C:\\Users\\macropower\\Documents\\test.txt", linesToWrite.ToArray());
         }
     }
 }
