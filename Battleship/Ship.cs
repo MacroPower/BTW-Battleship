@@ -10,10 +10,10 @@ namespace Battleship
     {
         private int length;
         private int health;
-        private int start1;
-        private int start2;
-        private int end1;
-        private int end2;
+        private int StartX;
+        private int StartY;
+        private int EndX;
+        private int EndY;
         
 
 
@@ -21,13 +21,13 @@ namespace Battleship
         {
             length = size;
             health = size;
-            start1 = startX;
-            start2 = startY;
-            end1 = endX;
-            end2 = endY;
+            StartX = startX;
+            StartY = startY;
+            EndX = endX;
+            EndY = endY;
         }
 
-        public bool Hit()
+        public bool Hit() //this cannot save with current config. need to redo one or the other.
         {
             health--;
             if(health == 0)
@@ -36,16 +36,11 @@ namespace Battleship
             }
             
             return false;
-            
-            
-        } 
+        }
 
         public int[] GetCoords()
         {
-            return new int[4] { start1, start2, end1, end2 };
+            return new int[4] { StartX, EndX, StartY, EndY };
         }
-
-
-
     }
 }

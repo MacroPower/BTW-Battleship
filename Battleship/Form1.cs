@@ -28,9 +28,9 @@ namespace Battleship
             string currentButton = button.Name;
             //standard form: btn(L/R)(00)
 
-            if (currentButton[3].ToString() == "L")
+            if (currentButton[3].ToString() == "R")
                 currentBoard = leftBoard;
-            else if (currentButton[3].ToString() == "R")
+            else if (currentButton[3].ToString() == "L")
                 currentBoard = rightBoard;
             else
             {
@@ -54,9 +54,9 @@ namespace Battleship
                     break;
             }
 
-            if (currentButton[3].ToString() == "L")
+            if (currentButton[3].ToString() == "R")
                 leftBoard = currentBoard;
-            else if (currentButton[3].ToString() == "R")
+            else if (currentButton[3].ToString() == "L")
                 rightBoard = currentBoard;
             else
                 throw new NotImplementedException();
@@ -74,30 +74,28 @@ namespace Battleship
 
             //TODO: Loop all this.
             Ship ship5Place = addShipL.GetNewShip(5);
-            //Ship ship4Place = addShip.GetNewShip(4);
+           // Ship ship4Place = addShipL.GetNewShip(4);
             //Ship ship3Place = addShip.GetNewShip(3);
             //Ship ship3Place2 = addShip.GetNewShip(3);
-            Ship ship2Place = addShipL.GetNewShip(2);
+            //Ship ship2Place = addShipL.GetNewShip(2);
 
             leftBoard.AddShip(ship5Place);
             //leftBoard.AddShip(ship4Place);
             //leftBoard.AddShip(ship3Place);
             //leftBoard.AddShip(ship3Place2);
-            leftBoard.AddShip(ship2Place);
+            //leftBoard.AddShip(ship2Place);
 
             Ship ship5PlaceR = addShipR.GetNewShip(5);
             //Ship ship4Place = addShip.GetNewShip(4);
             //Ship ship3Place = addShip.GetNewShip(3);
             //Ship ship3Place2 = addShip.GetNewShip(3);
-            Ship ship2PlaceR = addShipR.GetNewShip(2);
+            //Ship ship2PlaceR = addShipR.GetNewShip(2);
 
             rightBoard.AddShip(ship5PlaceR);
             //rightBoard.AddShip(ship4Place);
             //rightBoard.AddShip(ship3Place);
             //rightBoard.AddShip(ship3Place2);
-            rightBoard.AddShip(ship2PlaceR);
-
-            //need to limit button objects now.
+            //rightBoard.AddShip(ship2PlaceR);
         }
 
         private void button34_Click(object sender, EventArgs e) //load game button

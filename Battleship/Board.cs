@@ -41,20 +41,24 @@ namespace Battleship
         {
             int[] coords = ship.GetCoords();
             //x,y - x,y
+            int xStart = coords[0];
+            int xEnd = coords[1];
+            int yStart = coords[2];
+            int yEnd = coords[3];
             //loop to determine all coords
             //loop to write all values to array
-            if (coords[0] == coords[2])
+            if (xStart == xEnd)
             {
-                for (int top = coords[1]; top >= coords[3]; top--) //might be an infinite loop idk
+                for (int top = yStart; top <= yEnd; top++)
                 {
-                    array[coords[0], top] = 1;
+                    array[xStart, top] = 1;
                 }
-            }//doesn't work
-            else if (coords[1] == coords[3])
+            }
+            else if (yStart == yEnd)
             {
-                for (int top = coords[0]; top >= coords[2]; top--) //same goes
+                for (int top = xStart; top <= xEnd; top++)
                 {
-                    array[top, coords[1]] = 1;
+                    array[top, yStart] = 1;
                 }
             }
             else
