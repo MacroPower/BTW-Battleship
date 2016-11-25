@@ -158,13 +158,88 @@ namespace Battleship
             Reset();
 
             string[] lines = System.IO.File.ReadLines("C:\\Users\\macropower\\Documents\\test.txt").ToArray();
+            //should ALWAYS be 10+10+1 lines
 
-            //Board leftBoard = new Board(array);
-            //Board rightBoard = new Board(array);
+            int[,] arrayR = new int[10, 10];
+
+            for (int rowIndex = 0; rowIndex < 10; rowIndex++)
+            {
+                for (int colIndex = 0; colIndex < 10; colIndex++)
+                {
+                    arrayR[rowIndex, colIndex] = int.Parse(lines[rowIndex][colIndex].ToString());
+                }
+            }
+
+            int[,] arrayL = new int[10, 10];
+
+            for (int rowIndex = 0; rowIndex < 10; rowIndex++)
+            {
+                for (int colIndex = 0; colIndex < 10; colIndex++)
+                {
+                    arrayL[rowIndex, colIndex] = int.Parse(lines[rowIndex+10][colIndex].ToString());
+                }
+            }
+
+            //above should probably go into board class.
+
+             leftBoard = new Board(arrayL);
+             rightBoard = new Board(arrayR);
 
             //update all buttons based on array.
 
+            //this code is very bad and should be written in a way that's not super redundant. just PoC for now.
+
+            foreach (Button s in this.Controls.OfType<Button>())
+            {
+                if(!(s.Name[3].ToString() == "C" || s.Name[3].ToString() == "L"))
+                {
+                    if (leftBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 0
+                     || leftBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 1)
+                    {
+                        s.UseVisualStyleBackColor = true;
+                    }
+                    else if (leftBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 2)
+                    {
+                        s.BackColor = Color.White;
+                    }
+                    else if (leftBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 3)
+                    {
+                        s.BackColor = Color.Red;
+                    }
+                }
+            }
+
+            foreach (Button s in this.Controls.OfType<Button>())
+            {
+                if (!(s.Name[3].ToString() == "C" || s.Name[3].ToString() == "R"))
+                {
+                    if (rightBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 0
+                     || rightBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 1)
+                    {
+                        s.UseVisualStyleBackColor = true;
+                    }
+                    else if (rightBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 2)
+                    {
+                        s.BackColor = Color.White;
+                    }
+                    else if (rightBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 3)
+                    {
+                        s.BackColor = Color.Red;
+                    }
+                }
+            }
+
             //need to add additional details for ships, current turn, etc.
+
+
+            //just to get the ball rolling, so to speak. need to check array in the future to figure out the turn.
+            foreach (Button s in this.Controls.OfType<Button>())
+            {
+                if (s.Name[3].ToString() == "L")
+                {
+                    s.Enabled = true;
+                }
+            }
         }
 
         private void btnSaveGame_Click(object sender, EventArgs e)
@@ -178,8 +253,6 @@ namespace Battleship
                 linesToWrite.Add(line.ToString());
             }
 
-            linesToWrite.Add(",");
-
             for (int rowIndex = 0; rowIndex < 10; rowIndex++)
             {
                 StringBuilder line = new StringBuilder();
@@ -187,8 +260,6 @@ namespace Battleship
                     line.Append(leftBoard.GetCellStatus(rowIndex, colIndex));
                 linesToWrite.Add(line.ToString());
             }
-
-            linesToWrite.Add(",");
 
             linesToWrite.Add("metadata");
 
