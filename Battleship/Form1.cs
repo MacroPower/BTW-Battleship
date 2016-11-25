@@ -20,6 +20,18 @@ namespace Battleship
             InitializeComponent();
         }
 
+        //TODO: Add tracking for current turn.
+             // Add tracking for destroyed ships.
+             // Add support in save/load for turns/ships.
+             // Add error handling.
+             // Allow selectable save/load locations.
+             // Make a better end-game screen.
+             // Fix issues with saving/loading finished games.
+             // Distribute code more correctly, placing related functions in their classes.
+             // Fix code in general to make it less redundant.
+             // Make tests.
+             // Don't break anything?
+
         private void Form1_Load(object sender, EventArgs e)
         {
             foreach (Button s in this.Controls.OfType<Button>())
@@ -115,11 +127,12 @@ namespace Battleship
             
             AddShipsForm addShipL = new AddShipsForm();
             AddShipsForm addShipR = new AddShipsForm();
+            //these windows jump all over the place for no good reason. need to find a fix.
 
             leftBoard = new Board();
             rightBoard = new Board();
 
-            //TODO: Loop all this.
+            //TODO: Loop all this, maybe?
             Ship ship5Place = addShipL.GetNewShip(5);
             Ship ship4Place = addShipL.GetNewShip(4);
             //Ship ship3Place = addShip.GetNewShip(3);
