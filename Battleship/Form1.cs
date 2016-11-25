@@ -12,7 +12,6 @@ namespace Battleship
 {
     public partial class Form1 : Form
     {
-
         private Board leftBoard;
         private Board rightBoard;
 
@@ -87,12 +86,33 @@ namespace Battleship
             }
 
             //check for win
+            if (currentBoard.Win())
+            {
+                MessageBox.Show("Player " + button.Name[3].ToString() + " won.");
+
+                Reset();
+            }
+                
         }
+
+        private void Reset()
+        {
+            foreach (Button s in this.Controls.OfType<Button>())
+            {
+                s.Enabled = false;
+                s.UseVisualStyleBackColor = true;
+            }
+
+            btnControlNewGame.Enabled = true;
+            btnControlLoadGame.Enabled = true;
+            
+        }
+
 
         private void btnNewGame_Click(object sender, EventArgs e)
         {
-            //need to add a reset here
-
+            Reset();
+            
             AddShipsForm addShipL = new AddShipsForm();
             AddShipsForm addShipR = new AddShipsForm();
 
