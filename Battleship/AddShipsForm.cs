@@ -33,12 +33,6 @@ namespace Battleship
             return ship;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            ship = new Ship(0, int.Parse(txtXVal.Text), int.Parse(txtXVal2.Text), int.Parse(txtYVal.Text), int.Parse(txtYVal2.Text));
-            this.Close();
-        }
-
         private void button_Click(object sender, EventArgs e)
         {
             var button = (Button)sender;
@@ -60,7 +54,7 @@ namespace Battleship
                      || int.Parse(s.Name[3].ToString()) == int.Parse(button.Name[3].ToString()) - sSize + 1
                      && int.Parse(s.Name[4].ToString()) == int.Parse(button.Name[4].ToString())
                      || int.Parse(s.Name[4].ToString()) == int.Parse(button.Name[4].ToString()) - sSize + 1
-                     && int.Parse(s.Name[3].ToString()) == int.Parse(button.Name[3].ToString())))
+                     && int.Parse(s.Name[3].ToString()) == int.Parse(button.Name[3].ToString()))) //need to add conditions to prevent overlap.
                     { s.Enabled = false; }
                 }
             }
@@ -83,7 +77,6 @@ namespace Battleship
                     yStart = yEnd;
                     yEnd = s;
                 }
-
 
                 if (xStart == xEnd)
                 {
@@ -118,7 +111,6 @@ namespace Battleship
                     throw new NotImplementedException();
                 }
 
-
                 foreach (Button s in this.Controls.OfType<Button>())
                 {
                     if(s.BackColor != Color.Gray)
@@ -126,8 +118,6 @@ namespace Battleship
                         s.Enabled = true;
                     }
                 }
-
-                
 
                 ship = new Ship(sSize, xStart, xEnd, yStart, yEnd);
                 this.Close();

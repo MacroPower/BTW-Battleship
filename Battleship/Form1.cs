@@ -21,6 +21,17 @@ namespace Battleship
             InitializeComponent();
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            foreach (Button s in this.Controls.OfType<Button>())
+            {
+                s.Enabled = false;
+            }
+
+            btnControlNewGame.Enabled = true;
+            btnControlLoadGame.Enabled = true;
+        }
+
         private void button_Click(object sender, EventArgs e)
         {
             var button = (Button)sender;
@@ -61,11 +72,27 @@ namespace Battleship
             else
                 throw new NotImplementedException();
 
+            //switch board
+
+            foreach (Button s in this.Controls.OfType<Button>())
+            {
+                if (s.Name[3].ToString() != currentButton[3].ToString())
+                {
+                    s.Enabled = true;
+                }
+                else if (s.Name[3].ToString() == currentButton[3].ToString())
+                {
+                    s.Enabled = false;
+                }
+            }
+
             //check for win
         }
 
-        private void button33_Click(object sender, EventArgs e) //new game button
+        private void btnNewGame_Click(object sender, EventArgs e)
         {
+            //need to add a reset here
+
             AddShipsForm addShipL = new AddShipsForm();
             AddShipsForm addShipR = new AddShipsForm();
 
@@ -89,16 +116,24 @@ namespace Battleship
             //Ship ship4Place = addShip.GetNewShip(4);
             //Ship ship3Place = addShip.GetNewShip(3);
             //Ship ship3Place2 = addShip.GetNewShip(3);
-            //Ship ship2PlaceR = addShipR.GetNewShip(2);
+            Ship ship2PlaceR = addShipR.GetNewShip(2);
 
             rightBoard.AddShip(ship5PlaceR);
             //rightBoard.AddShip(ship4Place);
             //rightBoard.AddShip(ship3Place);
             //rightBoard.AddShip(ship3Place2);
-            //rightBoard.AddShip(ship2PlaceR);
+            rightBoard.AddShip(ship2PlaceR);
+
+            foreach (Button s in this.Controls.OfType<Button>())
+            {
+                if (s.Name[3].ToString() == "L")
+                {
+                    s.Enabled = true;
+                }
+            }
         }
 
-        private void button34_Click(object sender, EventArgs e) //load game button
+        private void btnLoadGame_Click(object sender, EventArgs e)
         {
             int[,] array;
 
@@ -106,10 +141,9 @@ namespace Battleship
             //Board rightBoard = new Board(array);
         }
 
-        private void button35_Click(object sender, EventArgs e) //save game button
+        private void btnSaveGame_Click(object sender, EventArgs e)
         {
-            //SaveGame();
-        }
 
+        }
     }
 }
