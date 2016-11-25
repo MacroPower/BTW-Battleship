@@ -18,9 +18,9 @@ namespace Battleship
             // 2 = miss
             // 3 = hit ship
 
-            for (int col = 1; col <= 10; col++)
+            for (int col = 0; col < 10; col++)
             {
-                for (int row = 1; row <= 10; row++)
+                for (int row = 0; row < 10; row++)
                 {
                     array[col, row] = 0;
                 } // 0 = no info
@@ -49,7 +49,7 @@ namespace Battleship
                 {
                     array[coords[0], top] = 1;
                 }
-            }
+            }//doesn't work
             else if (coords[1] == coords[3])
             {
                 for (int top = coords[0]; top >= coords[2]; top--) //same goes
@@ -63,7 +63,7 @@ namespace Battleship
             }
         }
 
-        public void Shot(int x, int y)
+        public int Shot(int x, int y)
         {
             int status = array[x, y];
 
@@ -87,7 +87,8 @@ namespace Battleship
                 Console.WriteLine("Out of range.");
                 throw new NotImplementedException();
             }
-            
+
+            return GetCellStatus(x, y);
         }
     }
 }

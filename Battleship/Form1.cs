@@ -12,6 +12,10 @@ namespace Battleship
 {
     public partial class Form1 : Form
     {
+
+        private Board leftBoard;
+        private Board rightBoard;
+
         public Form1()
         {
             InitializeComponent();
@@ -20,32 +24,80 @@ namespace Battleship
         private void button_Click(object sender, EventArgs e)
         {
             var button = (Button)sender;
-            switch (button.BackColor.Name)
+            Board currentBoard;
+            string currentButton = button.Name;
+            //standard form: btn(L/R)(00)
+
+            if (currentButton[3].ToString() == "L")
+                currentBoard = leftBoard;
+            else if (currentButton[3].ToString() == "R")
+                currentBoard = rightBoard;
+            else
             {
-                case "Miss":
+                Console.WriteLine(currentButton[3]);
+                throw new NotImplementedException();
+            }
+                
+
+            int status = currentBoard.Shot(int.Parse(currentButton[4].ToString()), int.Parse(currentButton[5].ToString()));
+
+            switch (status)
+            {
+                case 2:
                     button.BackColor = Color.White;
                     break;
-                case "Hit":
+                case 3:
                     button.BackColor = Color.Red;
                     break;
                 default:
                     button.BackColor = Color.Gray;
                     break;
             }
+
+            if (currentButton[3].ToString() == "L")
+                leftBoard = currentBoard;
+            else if (currentButton[3].ToString() == "R")
+                rightBoard = currentBoard;
+            else
+                throw new NotImplementedException();
+
+            //check for win
         }
 
         private void button33_Click(object sender, EventArgs e) //new game button
         {
-            AddShipsForm addShip = new AddShipsForm();
+            AddShipsForm addShipL = new AddShipsForm();
+            AddShipsForm addShipR = new AddShipsForm();
 
-            Board leftBoard = new Board();
-            Board rightBoard = new Board();
+            leftBoard = new Board();
+            rightBoard = new Board();
 
-            Ship ship5Place = addShip.GetNewShip(5);
-            Ship ship4Place = addShip.GetNewShip(4);
-            Ship ship3Place = addShip.GetNewShip(3);
-            Ship ship3Place2 = addShip.GetNewShip(3);
-            Ship ship2Place = addShip.GetNewShip(2);
+            //TODO: Loop all this.
+            Ship ship5Place = addShipL.GetNewShip(5);
+            //Ship ship4Place = addShip.GetNewShip(4);
+            //Ship ship3Place = addShip.GetNewShip(3);
+            //Ship ship3Place2 = addShip.GetNewShip(3);
+            Ship ship2Place = addShipL.GetNewShip(2);
+
+            leftBoard.AddShip(ship5Place);
+            //leftBoard.AddShip(ship4Place);
+            //leftBoard.AddShip(ship3Place);
+            //leftBoard.AddShip(ship3Place2);
+            leftBoard.AddShip(ship2Place);
+
+            Ship ship5PlaceR = addShipR.GetNewShip(5);
+            //Ship ship4Place = addShip.GetNewShip(4);
+            //Ship ship3Place = addShip.GetNewShip(3);
+            //Ship ship3Place2 = addShip.GetNewShip(3);
+            Ship ship2PlaceR = addShipR.GetNewShip(2);
+
+            rightBoard.AddShip(ship5PlaceR);
+            //rightBoard.AddShip(ship4Place);
+            //rightBoard.AddShip(ship3Place);
+            //rightBoard.AddShip(ship3Place2);
+            rightBoard.AddShip(ship2PlaceR);
+
+            //need to limit button objects now.
         }
 
         private void button34_Click(object sender, EventArgs e) //load game button
