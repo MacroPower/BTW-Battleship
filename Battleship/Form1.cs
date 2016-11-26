@@ -15,6 +15,20 @@ namespace Battleship
         private Board leftBoard;
         private Board rightBoard;
 
+        private List<Ship> ships = null;
+
+        private Ship ship5PlaceL;
+        private Ship ship4PlaceL;
+        //Ship ship3Place = addShip.GetNewShip(3);
+        //Ship ship3Place2 = addShip.GetNewShip(3);
+        //Ship ship2Place = addShipL.GetNewShip(2);
+
+        private Ship ship5PlaceR;
+        //Ship ship4Place = addShip.GetNewShip(4);
+        //Ship ship3Place = addShip.GetNewShip(3);
+        //Ship ship3Place2 = addShip.GetNewShip(3);
+        private Ship ship2PlaceR;
+
         public Form1()
         {
             InitializeComponent();
@@ -132,30 +146,33 @@ namespace Battleship
             leftBoard = new Board();
             rightBoard = new Board();
 
-            //TODO: Loop all this, maybe?
-            Ship ship5Place = addShipL.GetNewShip(5);
-            Ship ship4Place = addShipL.GetNewShip(4);
-            //Ship ship3Place = addShip.GetNewShip(3);
-            //Ship ship3Place2 = addShip.GetNewShip(3);
-            //Ship ship2Place = addShipL.GetNewShip(2);
+            ships = new List<Ship>();
+            
+            for (int i = 5; i > 1; i--)
+            {
+                Ship ship = addShipL.GetNewShip(i);
+                leftBoard.AddShip(ship);
+                ships.Add(ship);
+                if (i == 3)
+                {
+                    ship = addShipL.GetNewShip(i);
+                    leftBoard.AddShip(ship);
+                    ships.Add(ship);
+                }
+            }
 
-            leftBoard.AddShip(ship5Place);
-            leftBoard.AddShip(ship4Place);
-            //leftBoard.AddShip(ship3Place);
-            //leftBoard.AddShip(ship3Place2);
-            //leftBoard.AddShip(ship2Place);
-
-            Ship ship5PlaceR = addShipR.GetNewShip(5);
-            //Ship ship4Place = addShip.GetNewShip(4);
-            //Ship ship3Place = addShip.GetNewShip(3);
-            //Ship ship3Place2 = addShip.GetNewShip(3);
-            Ship ship2PlaceR = addShipR.GetNewShip(2);
-
-            rightBoard.AddShip(ship5PlaceR);
-            //rightBoard.AddShip(ship4Place);
-            //rightBoard.AddShip(ship3Place);
-            //rightBoard.AddShip(ship3Place2);
-            rightBoard.AddShip(ship2PlaceR);
+            for (int i = 5; i > 1; i--)
+            {
+                Ship ship = addShipR.GetNewShip(i);
+                rightBoard.AddShip(ship);
+                ships.Add(ship);
+                if (i == 3)
+                {
+                    ship = addShipR.GetNewShip(i);
+                    rightBoard.AddShip(ship);
+                    ships.Add(ship);
+                }
+            }
 
             foreach (Button s in this.Controls.OfType<Button>())
             {
@@ -274,7 +291,19 @@ namespace Battleship
                 linesToWrite.Add(line.ToString());
             }
 
-            linesToWrite.Add("metadata");
+            foreach (Ship ship in ships) //will not work unless ships are loaded.
+            {
+                StringBuilder line = new StringBuilder();
+                for (int i = 0; i < 4; i++)
+                    line.Append(ship.GetCoords()[i].ToString());
+                linesToWrite.Add(line.ToString());
+            }
+
+            if (btnL00.Enabled)
+                linesToWrite.Add("L");
+
+            if (btnR00.Enabled)
+                linesToWrite.Add("R");
 
             System.IO.File.WriteAllLines("C:\\Users\\macropower\\Documents\\test.txt", linesToWrite.ToArray());
         }
