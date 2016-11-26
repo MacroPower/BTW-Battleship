@@ -17,24 +17,12 @@ namespace Battleship
 
         private List<Ship> ships = null;
 
-        private Ship ship5PlaceL;
-        private Ship ship4PlaceL;
-        //Ship ship3Place = addShip.GetNewShip(3);
-        //Ship ship3Place2 = addShip.GetNewShip(3);
-        //Ship ship2Place = addShipL.GetNewShip(2);
-
-        private Ship ship5PlaceR;
-        //Ship ship4Place = addShip.GetNewShip(4);
-        //Ship ship3Place = addShip.GetNewShip(3);
-        //Ship ship3Place2 = addShip.GetNewShip(3);
-        private Ship ship2PlaceR;
-
         public Form1()
         {
             InitializeComponent();
         }
 
-        //TODO: Add tracking for current turn.
+        //TODO: 
              // Add tracking for destroyed ships.
              // Add support in save/load for turns/ships.
              // Add error handling.
