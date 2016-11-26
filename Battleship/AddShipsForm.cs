@@ -119,6 +119,8 @@ namespace Battleship
                     }
                 }
 
+                //change this to conform to 1,2,3,4,5 standard.
+
                 ship = new Ship(sSize, xStart, xEnd, yStart, yEnd);
                 this.Close();
             }

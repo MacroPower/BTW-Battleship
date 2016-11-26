@@ -51,14 +51,16 @@ namespace Battleship
             {
                 for (int top = yStart; top <= yEnd; top++)
                 {
-                    array[xStart, top] = 1;
+                    if (array[xStart, top] != 3)
+                        array[xStart, top] = 1;
                 }
             }
             else if (yStart == yEnd)
             {
                 for (int top = xStart; top <= xEnd; top++)
                 {
-                    array[top, yStart] = 1;
+                    if (array[xStart, top] != 3)
+                        array[top, yStart] = 1;
                 }
             }
             else

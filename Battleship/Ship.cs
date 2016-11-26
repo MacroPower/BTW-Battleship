@@ -19,7 +19,13 @@ namespace Battleship
 
         public Ship(int size, int startX, int endX, int startY, int endY)
         {
-            length = size;
+            if (size == 1 || size == 2)
+                length = size + 1;
+            else
+                length = size;
+
+
+
             health = size;
             StartX = startX;
             StartY = startY;
