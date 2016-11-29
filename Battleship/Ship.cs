@@ -31,7 +31,7 @@ namespace Battleship
             EndY = endY;
         }
 
-        public void Hit() //this cannot save with current config. need to redo one or the other.
+        public void Hit()
         {
             health--;
         }
@@ -54,7 +54,7 @@ namespace Battleship
             }
             else if (StartY == EndY)
             {
-                for (int top = StartX; top <= EndX; top++) //same goes
+                for (int top = StartX; top <= EndX; top++)
                 {
                     intToWrite.Add(int.Parse(StartY.ToString() + top.ToString()));
                 }

@@ -112,33 +112,33 @@ namespace Battleship
         public bool Win()
         {
             //THIS IS ONLY FOR TESTING-------------
-            int totalHits = 0;
+            //int totalHits = 0;
 
-            for (int col = 0; col < 10; col++)
-            {
-                for (int row = 0; row < 10; row++)
-                {
-                    if (array[col, row] == 3)
-                        totalHits++;
-                }
-            }
+            //for (int col = 0; col < 10; col++)
+            //{
+            //    for (int row = 0; row < 10; row++)
+            //    {
+            //        if (array[col, row] == 3)
+            //            totalHits++;
+            //    }
+            //}
 
-            if (totalHits == 5) //5+4+3+3+2=17. Setting to 5 for testing.
-                return true;
+            //if (totalHits == 5) //5+4+3+3+2=17. Setting to 5 for testing.
+            //    return true;
 
-            return false;
+            //return false;
 
             //REAL FUNCTION------------
 
-            //int[] hps = ShipHealths();
+            int[] hps = ShipHealths();
 
-            //for (int i = 0; i < 5; i++)
-            //{
-            //    if (hps[i] > 0)
-            //        return false;
-            //}
+            for (int i = 0; i < 5; i++)
+            {
+                if (hps[i] > 0)
+                    return false;
+            }
 
-            //return true;
+            return true;
 
         }
 

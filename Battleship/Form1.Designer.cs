@@ -143,6 +143,9 @@
             this.btnR41 = new System.Windows.Forms.Button();
             this.label40 = new System.Windows.Forms.Label();
             this.btnR40 = new System.Windows.Forms.Button();
+            this.label41 = new System.Windows.Forms.Label();
+            this.leftScore = new System.Windows.Forms.Label();
+            this.rightScore = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnL00
@@ -1183,11 +1186,41 @@
             this.btnR40.UseVisualStyleBackColor = true;
             this.btnR40.Click += new System.EventHandler(this.button_Click);
             // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Location = new System.Drawing.Point(747, 149);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(38, 13);
+            this.label41.TabIndex = 241;
+            this.label41.Text = "Score:";
+            // 
+            // leftScore
+            // 
+            this.leftScore.AutoSize = true;
+            this.leftScore.Location = new System.Drawing.Point(713, 183);
+            this.leftScore.Name = "leftScore";
+            this.leftScore.Size = new System.Drawing.Size(13, 13);
+            this.leftScore.TabIndex = 242;
+            this.leftScore.Text = "0";
+            // 
+            // rightScore
+            // 
+            this.rightScore.AutoSize = true;
+            this.rightScore.Location = new System.Drawing.Point(802, 183);
+            this.rightScore.Name = "rightScore";
+            this.rightScore.Size = new System.Drawing.Size(13, 13);
+            this.rightScore.TabIndex = 243;
+            this.rightScore.Text = "0";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(853, 344);
+            this.Controls.Add(this.rightScore);
+            this.Controls.Add(this.leftScore);
+            this.Controls.Add(this.label41);
             this.Controls.Add(this.btnR91);
             this.Controls.Add(this.label35);
             this.Controls.Add(this.btnR90);
@@ -1428,6 +1461,9 @@
         private System.Windows.Forms.Button btnR41;
         private System.Windows.Forms.Label label40;
         private System.Windows.Forms.Button btnR40;
+        private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.Label leftScore;
+        private System.Windows.Forms.Label rightScore;
     }
 }
 

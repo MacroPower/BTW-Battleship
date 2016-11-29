@@ -89,6 +89,26 @@ namespace Battleship
                     throw new NotImplementedException();
             }
 
+            //update scoreboard
+            
+            int rHpCount = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                if (rightBoard.ShipHealths()[i].ToString() == "0")
+                    rHpCount++;
+            }
+
+            leftScore.Text = rHpCount.ToString();
+            
+            int lHpCount = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                if (leftBoard.ShipHealths()[i].ToString() == "0")
+                    lHpCount++;
+            }
+
+            rightScore.Text = lHpCount.ToString();
+
             //check for win
 
             if (currentBoard.Win())
