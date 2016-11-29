@@ -24,7 +24,7 @@ namespace Battleship
 
         //TODO: 
              // Add error handling.
-             // Allow selectable save/load locations.
+             // Fix scoreboard when game was loaded.
              // Make a better end-game screen.
              // Fix issues with saving/loading finished games.
              // Distribute code more correctly, placing related functions in their classes.
@@ -137,6 +137,8 @@ namespace Battleship
             btnControlLoadGame.Enabled = true;
             //can't save a game without ships.
             //pointless to allow saving a just-loaded game.
+            rightScore.Text = "0";
+            leftScore.Text = "0";
         }
 
 
@@ -180,7 +182,7 @@ namespace Battleship
         {
             Reset();
 
-            string[] lines = System.IO.File.ReadLines("C:\\Users\\macropower\\Documents\\test.txt").ToArray();
+            string[] lines = System.IO.File.ReadLines(Application.StartupPath + "\\savegame.txt").ToArray();
             //should ALWAYS be 10+10+5+5+1 lines
 
             int[,] arrayR = new int[10, 10];
@@ -213,7 +215,8 @@ namespace Battleship
 
             for (int i = 0; i < 5; i++)
             {
-                Ship ship = new Ship(int.Parse(lines[i+20][0].ToString()), int.Parse(lines[i + 20][1].ToString()), int.Parse(lines[i + 20][2].ToString()), int.Parse(lines[i + 20][3].ToString()), int.Parse(lines[i + 25][4].ToString()));
+                Ship ship = new Ship(int.Parse(lines[i + 20][0].ToString()), int.Parse(lines[i + 20][1].ToString()), int.Parse(lines[i + 20][2].ToString()), int.Parse(lines[i + 20][3].ToString()), int.Parse(lines[i + 20][4].ToString()));
+                Console.WriteLine(int.Parse(lines[i + 20][4].ToString()));
                 leftBoard.AddShip(ship);
                 ships.Add(ship);
             }
@@ -221,6 +224,7 @@ namespace Battleship
             for (int i = 0; i < 5; i++)
             {
                 Ship ship = new Ship(int.Parse(lines[i + 25][0].ToString()), int.Parse(lines[i + 25][1].ToString()), int.Parse(lines[i + 25][2].ToString()), int.Parse(lines[i + 25][3].ToString()), int.Parse(lines[i + 25][4].ToString()));
+                Console.WriteLine(int.Parse(lines[i + 25][4].ToString()));
                 rightBoard.AddShip(ship);
                 ships.Add(ship);
             }
@@ -277,6 +281,24 @@ namespace Battleship
                     s.Enabled = true;
                 }
             }
+
+            int rHpCount = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                if (rightBoard.ShipHealths()[i].ToString() == "0")
+                    rHpCount++;
+            }
+
+            leftScore.Text = rHpCount.ToString();
+
+            int lHpCount = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                if (leftBoard.ShipHealths()[i].ToString() == "0")
+                    lHpCount++;
+            }
+
+            rightScore.Text = lHpCount.ToString();
         }
 
         private void btnSaveGame_Click(object sender, EventArgs e)
@@ -312,7 +334,7 @@ namespace Battleship
             if (btnR00.Enabled)
                 linesToWrite.Add("R");
 
-            System.IO.File.WriteAllLines("C:\\Users\\macropower\\Documents\\test.txt", linesToWrite.ToArray());
+            System.IO.File.WriteAllLines(Application.StartupPath + "\\savegame.txt", linesToWrite.ToArray());
         }
     }
 }
