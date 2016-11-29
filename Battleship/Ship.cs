@@ -52,27 +52,36 @@ namespace Battleship
             return health;
         }
 
-        public List<int> GetAllCells()
+        public string[] GetAllCells()
         {
-            List<int> intToWrite = new List<int>();
-
+            string[] intToWrite = new string[5];
+            int i = 0;
             if (StartX == EndX)
             {
                 for (int top = StartY; top <= EndY; top++)
                 {
-                    intToWrite.Add(int.Parse(top.ToString() + StartX.ToString()));
+                    intToWrite[i] = top.ToString() + StartX.ToString();
+                    //intToWrite[i] = (int.Parse(top.ToString() + StartX.ToString()));
+                    i++;
                 }
             }
             else if (StartY == EndY)
             {
                 for (int top = StartX; top <= EndX; top++)
                 {
-                    intToWrite.Add(int.Parse(StartY.ToString() + top.ToString()));
+                    intToWrite[i] = StartY.ToString() + top.ToString();
+                    i++;
                 }
             }
             else
             {
                 throw new NotImplementedException();
+            }
+
+            while (i < 5)
+            {
+                intToWrite[i] = "0";
+                i++;
             }
 
             return intToWrite;

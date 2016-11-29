@@ -115,10 +115,10 @@ namespace Battleship
                 MessageBox.Show("Player " + button.Name[3].ToString() + " won.");
 
                 for (int i = 0; i < 5; i++)
-                    Console.WriteLine(leftBoard.ShipHealths()[i].ToString());
+                    Console.WriteLine("Win: " + leftBoard.ShipHealths()[i].ToString());
 
                 for (int i = 0; i < 5; i++)
-                    Console.WriteLine(rightBoard.ShipHealths()[i].ToString());
+                    Console.WriteLine("Win: " + rightBoard.ShipHealths()[i].ToString());
 
                 Reset();
             }
@@ -216,7 +216,7 @@ namespace Battleship
             for (int i = 0; i < 5; i++)
             {
                 Ship ship = new Ship(true, int.Parse(lines[i + 20][0].ToString()), int.Parse(lines[i + 20][1].ToString()), int.Parse(lines[i + 20][2].ToString()), int.Parse(lines[i + 20][3].ToString()), int.Parse(lines[i + 20][4].ToString()));
-                Console.WriteLine(int.Parse(lines[i + 20][0].ToString()));
+                Console.WriteLine("Load: " + int.Parse(lines[i + 20][0].ToString()));
                 leftBoard.AddShip(ship);
                 ships.Add(ship);
             }
@@ -224,7 +224,7 @@ namespace Battleship
             for (int i = 0; i < 5; i++)
             {
                 Ship ship = new Ship(true, int.Parse(lines[i + 25][0].ToString()), int.Parse(lines[i + 25][1].ToString()), int.Parse(lines[i + 25][2].ToString()), int.Parse(lines[i + 25][3].ToString()), int.Parse(lines[i + 25][4].ToString()));
-                Console.WriteLine(int.Parse(lines[i + 25][0].ToString()));
+                Console.WriteLine("Load: " + int.Parse(lines[i + 25][0].ToString()));
                 rightBoard.AddShip(ship);
                 ships.Add(ship);
             }

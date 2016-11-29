@@ -89,9 +89,15 @@ namespace Battleship
                 array[x, y] = 3;
                 foreach (Ship ship in ships)
                 {
-                    if (ship.GetAllCells().Contains(int.Parse(x.ToString() + y.ToString())))
-                    { //this is not selecting the correct ship.
-                        ship.Hit();
+                    string[] cells = ship.GetAllCells();
+                    for (int i = 0; i < 5; i++)
+                    {
+                        Console.WriteLine("Cell: " + cells[i].ToString());
+
+                        if (cells[i] == x.ToString() + y.ToString())
+                        { //this is not selecting the correct ship.
+                            ship.Hit();
+                        }
                     }
                 }
             }
