@@ -206,22 +206,18 @@ namespace Battleship
 
             ships = new List<Ship>();
 
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 5; i++)
             {
-                int size = 5;
-                Ship ship = new Ship(size, int.Parse(lines[i+20][0].ToString()), int.Parse(lines[i + 20][1].ToString()), int.Parse(lines[i + 20][2].ToString()), int.Parse(lines[i + 20][3].ToString()));
+                Ship ship = new Ship(i+1, int.Parse(lines[i+20][0].ToString()), int.Parse(lines[i + 20][1].ToString()), int.Parse(lines[i + 20][2].ToString()), int.Parse(lines[i + 20][3].ToString()));
                 leftBoard.AddShip(ship);
                 ships.Add(ship);
-                size--;
             }
 
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 5; i++)
             {
-                int size = 5;
-                Ship ship = new Ship(size, int.Parse(lines[i + 25][0].ToString()), int.Parse(lines[i + 25][1].ToString()), int.Parse(lines[i + 25][2].ToString()), int.Parse(lines[i + 25][3].ToString()));
+                Ship ship = new Ship(i+1, int.Parse(lines[i + 25][0].ToString()), int.Parse(lines[i + 25][1].ToString()), int.Parse(lines[i + 25][2].ToString()), int.Parse(lines[i + 25][3].ToString()));
                 rightBoard.AddShip(ship);
                 ships.Add(ship);
-                size--;
             }
 
 
@@ -269,13 +265,9 @@ namespace Battleship
                 }
             }
 
-            //need to add additional details for ships, current turn, etc.
-
-
-            //just to get the ball rolling, so to speak. need to check array in the future to figure out the turn.
             foreach (Button s in this.Controls.OfType<Button>())
             {
-                if (s.Name[3].ToString() == lines[32][0].ToString())
+                if (s.Name[3].ToString() == lines[30][0].ToString())
                 {
                     s.Enabled = true;
                 }
