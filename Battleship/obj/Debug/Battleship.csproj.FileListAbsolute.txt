@@ -20,3 +20,6 @@ C:\gitProjects\Battleship2\Battleship\obj\Debug\Battleship.AddShipsForm.resource
 C:\gitProjects\Battleship2\Battleship\obj\Debug\Battleship.Form1.resources
 C:\gitProjects\Battleship2\Battleship\obj\Debug\Battleship.Properties.Resources.resources
 C:\gitProjects\Battleship2\Battleship\obj\Debug\Battleship.csproj.GenerateResource.Cache
+C:\gitProjects\tubervta_Final\Battleship\bin\Debug\Battleship.exe.config
+C:\gitProjects\tubervta_Final\Battleship\obj\Debug\Battleship.exe
+C:\gitProjects\tubervta_Final\Battleship\obj\Debug\Battleship.pdb
