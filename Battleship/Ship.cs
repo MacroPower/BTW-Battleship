@@ -67,9 +67,9 @@ namespace Battleship
             return intToWrite;
         }
 
-        public int[] GetCoords() //this needs to return health and be renamed for save function, as board will use GetAllCells()
+        public int[] GetStats() //this needs to return health for save function, as board will use GetAllCells()
         {
-            return new int[4] { StartX, EndX, StartY, EndY };
+            return new int[5] { health, StartX, EndX, StartY, EndY };
         }
     }
 }

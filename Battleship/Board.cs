@@ -42,12 +42,12 @@ namespace Battleship
         {
             ships.Add(ship);
 
-            int[] coords = ship.GetCoords();
+            int[] coords = ship.GetStats();
             //x,y - x,y
-            int xStart = coords[0];
-            int xEnd = coords[1];
-            int yStart = coords[2];
-            int yEnd = coords[3];
+            int xStart = coords[1];
+            int xEnd = coords[2];
+            int yStart = coords[3];
+            int yEnd = coords[4];
             //loop to determine all coords
             //loop to write all values to array
 
@@ -139,7 +139,6 @@ namespace Battleship
             }
 
             return true;
-
         }
 
         public int[] ShipHealths()
