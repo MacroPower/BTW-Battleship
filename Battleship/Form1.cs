@@ -215,16 +215,16 @@ namespace Battleship
 
             for (int i = 0; i < 5; i++)
             {
-                Ship ship = new Ship(int.Parse(lines[i + 20][0].ToString()), int.Parse(lines[i + 20][1].ToString()), int.Parse(lines[i + 20][2].ToString()), int.Parse(lines[i + 20][3].ToString()), int.Parse(lines[i + 20][4].ToString()));
-                Console.WriteLine(int.Parse(lines[i + 20][4].ToString()));
+                Ship ship = new Ship(true, int.Parse(lines[i + 20][0].ToString()), int.Parse(lines[i + 20][1].ToString()), int.Parse(lines[i + 20][2].ToString()), int.Parse(lines[i + 20][3].ToString()), int.Parse(lines[i + 20][4].ToString()));
+                Console.WriteLine(int.Parse(lines[i + 20][0].ToString()));
                 leftBoard.AddShip(ship);
                 ships.Add(ship);
             }
 
             for (int i = 0; i < 5; i++)
             {
-                Ship ship = new Ship(int.Parse(lines[i + 25][0].ToString()), int.Parse(lines[i + 25][1].ToString()), int.Parse(lines[i + 25][2].ToString()), int.Parse(lines[i + 25][3].ToString()), int.Parse(lines[i + 25][4].ToString()));
-                Console.WriteLine(int.Parse(lines[i + 25][4].ToString()));
+                Ship ship = new Ship(true, int.Parse(lines[i + 25][0].ToString()), int.Parse(lines[i + 25][1].ToString()), int.Parse(lines[i + 25][2].ToString()), int.Parse(lines[i + 25][3].ToString()), int.Parse(lines[i + 25][4].ToString()));
+                Console.WriteLine(int.Parse(lines[i + 25][0].ToString()));
                 rightBoard.AddShip(ship);
                 ships.Add(ship);
             }

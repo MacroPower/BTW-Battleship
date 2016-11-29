@@ -31,6 +31,17 @@ namespace Battleship
             EndY = endY;
         }
 
+        public Ship(bool load, int size, int startX, int endX, int startY, int endY)
+        {
+            length = size;
+            health = length;
+            StartX = startX;
+            StartY = startY;
+            EndX = endX;
+            EndY = endY;
+        }
+
+
         public void Hit()
         {
             health--;

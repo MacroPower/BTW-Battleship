@@ -90,7 +90,7 @@ namespace Battleship
                 foreach (Ship ship in ships)
                 {
                     if (ship.GetAllCells().Contains(int.Parse(x.ToString() + y.ToString())))
-                    {
+                    { //this is not selecting the correct ship.
                         ship.Hit();
                     }
                 }
