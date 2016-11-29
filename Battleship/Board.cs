@@ -9,6 +9,7 @@ namespace Battleship
     public class Board
     {
         private int[,] array = new int[10, 10];
+        private List<Ship> ships = new List<Ship>();
 
         public Board()
         {
@@ -39,6 +40,8 @@ namespace Battleship
 
         public void AddShip(Ship ship)
         {
+            ships.Add(ship);
+
             int[] coords = ship.GetCoords();
             //x,y - x,y
             int xStart = coords[0];
@@ -47,6 +50,8 @@ namespace Battleship
             int yEnd = coords[3];
             //loop to determine all coords
             //loop to write all values to array
+
+            //can be replaced with GetAllCells();
             if (xStart == xEnd)
             {
                 for (int top = yStart; top <= yEnd; top++)
@@ -82,6 +87,13 @@ namespace Battleship
             {
                 //hit
                 array[x, y] = 3;
+                foreach (Ship ship in ships)
+                {
+                    if (ship.GetAllCells().Contains(int.Parse(x.ToString() + y.ToString())))
+                    {
+                        ship.Hit();
+                    }
+                }
             }
             else if (status == 0)
             {
@@ -99,6 +111,7 @@ namespace Battleship
 
         public bool Win()
         {
+            //THIS IS ONLY FOR TESTING-------------
             int totalHits = 0;
 
             for (int col = 0; col < 10; col++)
@@ -107,13 +120,38 @@ namespace Battleship
                 {
                     if (array[col, row] == 3)
                         totalHits++;
-                } 
+                }
             }
 
             if (totalHits == 5) //5+4+3+3+2=17. Setting to 5 for testing.
                 return true;
 
             return false;
+
+            //REAL FUNCTION------------
+
+            //int[] hps = ShipHealths();
+
+            //for (int i = 0; i < 5; i++)
+            //{
+            //    if (hps[i] > 0)
+            //        return false;
+            //}
+
+            //return true;
+
+        }
+
+        public int[] ShipHealths()
+        {
+            int[] healths = new int[5];
+            int i = 0;
+            foreach (Ship ship in ships)
+            {
+                healths[i] = ship.Health();
+                i++;
+            }
+            return healths;
         }
     }
 }

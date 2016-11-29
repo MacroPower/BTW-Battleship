@@ -24,7 +24,6 @@ namespace Battleship
 
         //TODO: 
              // Add tracking for destroyed ships.
-             // Add support in save/load for turns/ships.
              // Add error handling.
              // Allow selectable save/load locations.
              // Make a better end-game screen.
@@ -36,13 +35,7 @@ namespace Battleship
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            foreach (Button s in this.Controls.OfType<Button>())
-            {
-                s.Enabled = false;
-            }
-
-            btnControlNewGame.Enabled = true;
-            btnControlLoadGame.Enabled = true;
+            Reset();
         }
 
         private void button_Click(object sender, EventArgs e)
@@ -57,25 +50,20 @@ namespace Battleship
             else if (currentButton[3].ToString() == "L")
                 currentBoard = rightBoard;
             else
-            {
-                Console.WriteLine(currentButton[3]);
-                throw new NotImplementedException();
-            }
-                
+                throw new NotImplementedException(); //something was named wrong.
 
             int status = currentBoard.Shot(int.Parse(currentButton[4].ToString()), int.Parse(currentButton[5].ToString()));
 
             switch (status)
             {
-                case 2:
+                case 2: //miss
                     button.BackColor = Color.White;
                     break;
-                case 3:
+                case 3: //hit
                     button.BackColor = Color.Red;
                     break;
-                default:
-                    button.BackColor = Color.Gray;
-                    break;
+                default: //array is malformed
+                    throw new NotImplementedException();
             }
 
             if (currentButton[3].ToString() == "R")
@@ -97,12 +85,21 @@ namespace Battleship
                 {
                     s.Enabled = false;
                 }
+                else
+                    throw new NotImplementedException();
             }
 
             //check for win
+
             if (currentBoard.Win())
             {
                 MessageBox.Show("Player " + button.Name[3].ToString() + " won.");
+
+                for (int i = 0; i < 5; i++)
+                    Console.WriteLine(leftBoard.ShipHealths()[i].ToString());
+
+                for (int i = 0; i < 5; i++)
+                    Console.WriteLine(rightBoard.ShipHealths()[i].ToString());
 
                 Reset();
             }
@@ -119,7 +116,8 @@ namespace Battleship
 
             btnControlNewGame.Enabled = true;
             btnControlLoadGame.Enabled = true;
-            
+            //can't save a game without ships.
+            //pointless to allow saving a just-loaded game.
         }
 
 
@@ -136,30 +134,18 @@ namespace Battleship
 
             ships = new List<Ship>();
             
-            for (int i = 5; i > 1; i--)
+            for (int i = 5; i > 0; i--)
             {
                 Ship ship = addShipL.GetNewShip(i);
                 leftBoard.AddShip(ship);
                 ships.Add(ship);
-                if (i == 3)
-                {
-                    ship = addShipL.GetNewShip(i);
-                    leftBoard.AddShip(ship);
-                    ships.Add(ship);
-                }
             }
 
-            for (int i = 5; i > 1; i--)
+            for (int i = 5; i > 0; i--)
             {
                 Ship ship = addShipR.GetNewShip(i);
                 rightBoard.AddShip(ship);
                 ships.Add(ship);
-                if (i == 3)
-                {
-                    ship = addShipR.GetNewShip(i);
-                    rightBoard.AddShip(ship);
-                    ships.Add(ship);
-                }
             }
 
             foreach (Button s in this.Controls.OfType<Button>())
@@ -176,7 +162,7 @@ namespace Battleship
             Reset();
 
             string[] lines = System.IO.File.ReadLines("C:\\Users\\macropower\\Documents\\test.txt").ToArray();
-            //should ALWAYS be 10+10+1 lines
+            //should ALWAYS be 10+10+5+5+1 lines
 
             int[,] arrayR = new int[10, 10];
 

@@ -19,6 +19,7 @@ namespace Battleship
         private int yEnd;
         private bool clicked = false;
         private int sSize;
+        private int nsSize;
 
         public AddShipsForm()
         {
@@ -27,8 +28,14 @@ namespace Battleship
 
         public Ship GetNewShip(int size)
         {
-            sSize = size;
-            titleLabel.Text = size + "-Place Ship";
+            nsSize = size;
+
+            if (size == 1 || size == 2)
+                sSize = size + 1;
+            else
+                sSize = size;
+
+            titleLabel.Text = sSize + "-Place Ship";
             this.ShowDialog();
             return ship;
         }
@@ -119,9 +126,7 @@ namespace Battleship
                     }
                 }
 
-                //change this to conform to 1,2,3,4,5 standard.
-
-                ship = new Ship(sSize, xStart, xEnd, yStart, yEnd);
+                ship = new Ship(nsSize, xStart, xEnd, yStart, yEnd);
                 this.Close();
             }
         }
