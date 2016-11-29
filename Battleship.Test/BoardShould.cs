@@ -24,14 +24,14 @@ namespace Battleship.Test
         [TestMethod]
         public void PlaceValidShip()
         {
-            Ship test = new Ship();
+            Ship test = new Ship(4, 2, 2, 5, 2);
         }
 
         [TestMethod]
         [ExpectedException(typeof(Exception), "Can't start without placing all ships.")]
         public void ThrowIfStartedWithoutFullTeam()
         {
-            Ship test1 = new Ship(4,2,2,6,2);
+            Ship test1 = new Ship(4,2,2,5,2);
             Ship test2 = new Ship(3,2,3,4,3);
             Ship test3 = new Ship(2,2,4,2,5);
             //not a full team
@@ -41,7 +41,7 @@ namespace Battleship.Test
         [TestMethod]
         public void ShowAHit()
         {
-            Ship test1 = new Ship(4, 2, 2, 6, 2);
+            Ship test1 = new Ship(4, 2, 2, 5, 2);
             Board test = new Board();
             test.Shot(2,2);
             Assert.AreEqual(true);
@@ -51,7 +51,7 @@ namespace Battleship.Test
         public void ShowAMiss()
         {
             Board test = new Board();
-            Ship test1 = new Ship(4, 2, 2, 6, 2);
+            Ship test1 = new Ship(4, 2, 2, 5, 2);
             test.Shot(6, 6);
             Assert.AreEqual(false);
         }
@@ -112,7 +112,7 @@ namespace Battleship.Test
         public void DestroyFullyHitShip()
         {
             Board test = new Board();
-            Ship test1 = new Ship(4, 2, 2, 6, 2);
+            Ship test1 = new Ship(4, 2, 2, 5, 2);
             test.Shot(2, 2);
             test.Shot(3, 2);
             test.Shot(4, 2);
