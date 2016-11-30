@@ -33,3 +33,13 @@ C:\Users\macropower\Downloads\BTW-Battleship-master\New folder\Battleship\obj\De
 C:\Users\macropower\Downloads\BTW-Battleship-master\New folder\Battleship\obj\Debug\Battleship.Form1.resources
 C:\Users\macropower\Downloads\BTW-Battleship-master\New folder\Battleship\obj\Debug\Battleship.Properties.Resources.resources
 C:\Users\macropower\Downloads\BTW-Battleship-master\New folder\Battleship\obj\Debug\Battleship.csproj.GenerateResource.Cache
+C:\Users\macropower\Documents\BTW-working\New folder\Battleship\bin\Debug\Battleship.exe.config
+C:\Users\macropower\Documents\BTW-working\New folder\Battleship\bin\Debug\Battleship.exe
+C:\Users\macropower\Documents\BTW-working\New folder\Battleship\bin\Debug\Battleship.pdb
+C:\Users\macropower\Documents\BTW-working\New folder\Battleship\obj\Debug\Battleship.csprojResolveAssemblyReference.cache
+C:\Users\macropower\Documents\BTW-working\New folder\Battleship\obj\Debug\Battleship.AddShipsForm.resources
+C:\Users\macropower\Documents\BTW-working\New folder\Battleship\obj\Debug\Battleship.Form1.resources
+C:\Users\macropower\Documents\BTW-working\New folder\Battleship\obj\Debug\Battleship.Properties.Resources.resources
+C:\Users\macropower\Documents\BTW-working\New folder\Battleship\obj\Debug\Battleship.csproj.GenerateResource.Cache
+C:\Users\macropower\Documents\BTW-working\New folder\Battleship\obj\Debug\Battleship.exe
+C:\Users\macropower\Documents\BTW-working\New folder\Battleship\obj\Debug\Battleship.pdb

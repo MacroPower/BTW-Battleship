@@ -14,6 +14,7 @@ namespace Battleship
     {
         private Board leftBoard;
         private Board rightBoard;
+        private bool turn; //true = left, false = right
 
         public Form1()
         {
@@ -21,8 +22,6 @@ namespace Battleship
         }
 
         //TODO: 
-             // Fix bug where on repeated saves/loads, health returns negative.
-             // Fix bug where score is loaded to previous values, then corrected on a hit.
              // Add error handling.
              // Make a better end-game screen.
              // Distribute code more correctly, placing related functions in their classes.
@@ -75,7 +74,8 @@ namespace Battleship
             {
                 if (s.Name[3].ToString() != currentButton[3].ToString())
                 {
-                    s.Enabled = true;
+                    if (!(s.BackColor == Color.White || s.BackColor == Color.Red))
+                        s.Enabled = true;
                 }
                 else if (s.Name[3].ToString() == currentButton[3].ToString())
                 {
@@ -84,6 +84,7 @@ namespace Battleship
                 else
                     throw new NotImplementedException();
             }
+            turn = !turn;
 
             UpdateScore();
 
@@ -173,6 +174,7 @@ namespace Battleship
                     s.Enabled = true;
                 }
             }
+            turn = true;
         }
 
         private void btnLoadGame_Click(object sender, EventArgs e)
@@ -261,7 +263,8 @@ namespace Battleship
             {
                 if (s.Name[3].ToString() == lines[30][0].ToString()) //Set to 30
                 {
-                    s.Enabled = true;
+                    if (!(s.BackColor == Color.White || s.BackColor == Color.Red))
+                        s.Enabled = true;
                 }
             }
 
@@ -303,10 +306,10 @@ namespace Battleship
                 linesToWrite.Add(line.ToString());
             }
 
-            if (btnL00.Enabled)
+            if (turn)
                 linesToWrite.Add("L");
 
-            if (btnR00.Enabled)
+            if (!turn)
                 linesToWrite.Add("R");
 
             System.IO.File.WriteAllLines(Application.StartupPath + "\\savegame.txt", linesToWrite.ToArray());
