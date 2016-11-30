@@ -64,7 +64,7 @@ namespace Battleship
             {
                 for (int top = xStart; top <= xEnd; top++)
                 {
-                    if (array[xStart, top] != 3)
+                    if (array[top, yStart] != 3)
                         array[top, yStart] = 1;
                 }
             }
