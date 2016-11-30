@@ -15,8 +15,6 @@ namespace Battleship
         private Board leftBoard;
         private Board rightBoard;
 
-        private List<Ship> ships = new List<Ship>();
-
         public Form1()
         {
             InitializeComponent();
@@ -156,21 +154,17 @@ namespace Battleship
 
             leftBoard = new Board();
             rightBoard = new Board();
-
-            ships = new List<Ship>();
             
             for (int i = 5; i > 0; i--)
             {
                 Ship ship = addShipL.GetNewShip(i);
                 leftBoard.AddShip(ship);
-                ships.Add(ship);
             }
 
             for (int i = 5; i > 0; i--)
             {
                 Ship ship = addShipR.GetNewShip(i);
                 rightBoard.AddShip(ship);
-                ships.Add(ship);
             }
 
             foreach (Button s in this.Controls.OfType<Button>())
@@ -215,7 +209,6 @@ namespace Battleship
                 Ship ship = new Ship(true, int.Parse(lines[i + 20][0].ToString()), int.Parse(lines[i + 20][1].ToString()), int.Parse(lines[i + 20][2].ToString()), int.Parse(lines[i + 20][3].ToString()), int.Parse(lines[i + 20][4].ToString()));
                 Console.WriteLine("Load: " + int.Parse(lines[i + 20][0].ToString()));
                 leftBoard.AddShip(ship);
-                ships.Add(ship);
             }
 
             // Add ship objects to right board.
@@ -224,7 +217,6 @@ namespace Battleship
                 Ship ship = new Ship(true, int.Parse(lines[i + 25][0].ToString()), int.Parse(lines[i + 25][1].ToString()), int.Parse(lines[i + 25][2].ToString()), int.Parse(lines[i + 25][3].ToString()), int.Parse(lines[i + 25][4].ToString()));
                 Console.WriteLine("Load: " + int.Parse(lines[i + 25][0].ToString()));
                 rightBoard.AddShip(ship);
-                ships.Add(ship);
             }
 
             // Update all buttons based on array.
@@ -268,13 +260,13 @@ namespace Battleship
             // Set the turn correctly.
             foreach (Button s in this.Controls.OfType<Button>())
             {
-                if (s.Name[3].ToString() == lines[30][0].ToString())
+                if (s.Name[3].ToString() == lines[30][0].ToString()) //Set to 30
                 {
                     s.Enabled = true;
                 }
             }
 
-            UpdateScore();
+            //UpdateScore();
         }
 
         private void btnSaveGame_Click(object sender, EventArgs e)
@@ -296,7 +288,15 @@ namespace Battleship
                 linesToWrite.Add(line.ToString());
             }
 
-            foreach (Ship ship in ships)
+            foreach (Ship ship in leftBoard.AllShips())
+            {
+                StringBuilder line = new StringBuilder();
+                for (int i = 0; i < 5; i++)
+                    line.Append(ship.GetStats()[i].ToString());
+                linesToWrite.Add(line.ToString());
+            }
+
+            foreach (Ship ship in rightBoard.AllShips())
             {
                 StringBuilder line = new StringBuilder();
                 for (int i = 0; i < 5; i++)

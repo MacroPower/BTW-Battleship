@@ -158,5 +158,10 @@ namespace Battleship
             }
             return healths;
         }
+
+        public List<Ship> AllShips()
+        {
+            return ships;
+        }
     }
 }
