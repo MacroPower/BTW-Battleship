@@ -48,10 +48,18 @@ namespace Battleship
             {
                 xStart = int.Parse(button.Name[3].ToString());
                 yStart = int.Parse(button.Name[4].ToString());
+
                 clicked = true;
+
                 button.BackColor = Color.Blue;
                 button.Enabled = false;
-                //set buttons to prevent errors
+
+                bool markYDown = false;
+                bool markXRight = false;
+                bool markYUp = false;
+                bool markXLeft = false;
+
+                // Disable impossible buttons and find potential collisions.
                 foreach (Button s in this.Controls.OfType<Button>())
                 {
                     if (!(int.Parse(s.Name[3].ToString()) == int.Parse(button.Name[3].ToString()) + sSize - 1 
@@ -61,8 +69,97 @@ namespace Battleship
                      || int.Parse(s.Name[3].ToString()) == int.Parse(button.Name[3].ToString()) - sSize + 1
                      && int.Parse(s.Name[4].ToString()) == int.Parse(button.Name[4].ToString())
                      || int.Parse(s.Name[4].ToString()) == int.Parse(button.Name[4].ToString()) - sSize + 1
-                     && int.Parse(s.Name[3].ToString()) == int.Parse(button.Name[3].ToString()))) //need to add conditions to prevent overlap.
-                    { s.Enabled = false; }
+                     && int.Parse(s.Name[3].ToString()) == int.Parse(button.Name[3].ToString())))
+                    {
+                        s.Enabled = false;
+                    }
+                    
+                    for (int x = xStart; x < sSize+xStart; x++)
+                    {
+                        if (int.Parse(s.Name[3].ToString()) == x
+                         && int.Parse(s.Name[4].ToString()) == int.Parse(button.Name[4].ToString()))
+                        {
+                            if (s.BackColor == Color.Gray)
+                                markYDown = true;
+                        }
+                    }
+                    for (int y = yStart; y < sSize+yStart; y++)
+                    {
+                        if (int.Parse(s.Name[4].ToString()) == y
+                         && int.Parse(s.Name[3].ToString()) == int.Parse(button.Name[3].ToString()))
+                        {
+                            if (s.BackColor == Color.Gray)
+                                markXRight = true;
+                        }
+                    }
+
+                    for (int x = xStart; x > xStart-sSize; x--)
+                    {
+                        if (int.Parse(s.Name[3].ToString()) == x
+                         && int.Parse(s.Name[4].ToString()) == int.Parse(button.Name[4].ToString()))
+                        {
+                            if (s.BackColor == Color.Gray)
+                                markYUp = true;
+                        }
+                    }
+                    for (int y = yStart; y > yStart-sSize; y--)
+                    {
+                        if (int.Parse(s.Name[4].ToString()) == y
+                         && int.Parse(s.Name[3].ToString()) == int.Parse(button.Name[3].ToString()))
+                        {
+                            if (s.BackColor == Color.Gray)
+                                markXLeft = true;
+                        }
+                    }
+                }
+
+                // If there is a collision, prevent it from happening.
+                foreach (Button s in this.Controls.OfType<Button>())
+                {
+                    if (markYDown)
+                    {
+                        for (int x = xStart; x < sSize + xStart; x++)
+                        {
+                            if (int.Parse(s.Name[3].ToString()) == x
+                             && int.Parse(s.Name[4].ToString()) == int.Parse(button.Name[4].ToString()))
+                            {
+                                s.Enabled = false;
+                            }
+                        }
+                    }
+                    if (markXRight)
+                    {
+                        for (int y = yStart; y < sSize + yStart; y++)
+                        {
+                            if (int.Parse(s.Name[4].ToString()) == y
+                             && int.Parse(s.Name[3].ToString()) == int.Parse(button.Name[3].ToString()))
+                            {
+                                s.Enabled = false;
+                            }
+                        }
+                    }
+                    if (markYUp)
+                    {
+                        for (int x = xStart; x > xStart-sSize; x--)
+                        {
+                            if (int.Parse(s.Name[3].ToString()) == x
+                             && int.Parse(s.Name[4].ToString()) == int.Parse(button.Name[4].ToString()))
+                            {
+                                s.Enabled = false;
+                            }
+                        }
+                    }
+                    if (markXLeft)
+                    {
+                        for (int y = yStart; y > yStart-sSize; y--)
+                        {
+                            if (int.Parse(s.Name[4].ToString()) == y
+                             && int.Parse(s.Name[3].ToString()) == int.Parse(button.Name[3].ToString()))
+                            {
+                                s.Enabled = false;
+                            }
+                        }
+                    }
                 }
             }
             else if (clicked)
@@ -73,16 +170,16 @@ namespace Battleship
 
                 if (xStart > xEnd)
                 {
-                    int s = xStart;
+                    int start = xStart;
                     xStart = xEnd;
-                    xEnd = s;
+                    xEnd = start;
                 }
 
                 if (yStart > yEnd)
                 {
-                    int s = yStart;
+                    int start = yStart;
                     yStart = yEnd;
-                    yEnd = s;
+                    yEnd = start;
                 }
 
                 if (xStart == xEnd)
