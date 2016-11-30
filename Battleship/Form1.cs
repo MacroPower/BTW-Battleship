@@ -88,7 +88,6 @@ namespace Battleship
             UpdateScore();
 
             //check for win
-
             if (currentBoard.Win())
             {
                 MessageBox.Show("Player " + button.Name[3].ToString() + " won.");
@@ -266,7 +265,7 @@ namespace Battleship
                 }
             }
 
-            //UpdateScore();
+            UpdateScore();
         }
 
         private void btnSaveGame_Click(object sender, EventArgs e)
