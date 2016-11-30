@@ -60,7 +60,7 @@ namespace Battleship
             {
                 for (int top = StartY; top <= EndY; top++)
                 {
-                    intToWrite[i] = top.ToString() + StartX.ToString();
+                    intToWrite[i] = StartX.ToString() + top.ToString();
                     //intToWrite[i] = (int.Parse(top.ToString() + StartX.ToString()));
                     i++;
                 }
@@ -69,7 +69,7 @@ namespace Battleship
             {
                 for (int top = StartX; top <= EndX; top++)
                 {
-                    intToWrite[i] = StartY.ToString() + top.ToString();
+                    intToWrite[i] = top.ToString() + StartY.ToString();
                     i++;
                 }
             }

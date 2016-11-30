@@ -336,10 +336,6 @@ namespace Battleship
 
             System.IO.File.WriteAllLines(Application.StartupPath + "\\savegame.txt", linesToWrite.ToArray());
         }
-
-        private void button118_Click(object sender, EventArgs e)
-        {
-
-        }
+        
     }
 }
