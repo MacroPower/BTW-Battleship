@@ -15,7 +15,7 @@ namespace Battleship
         private Board leftBoard;
         private Board rightBoard;
 
-        private List<Ship> ships = null;
+        private List<Ship> ships = new List<Ship>();
 
         public Form1()
         {
@@ -23,10 +23,10 @@ namespace Battleship
         }
 
         //TODO: 
+             // Fix bug where on repeated saves/loads, health returns negative.
+             // Fix bug where score is loaded to previous values, then corrected on a hit.
              // Add error handling.
-             // Fix scoreboard when game was loaded.
              // Make a better end-game screen.
-             // Fix issues with saving/loading finished games.
              // Distribute code more correctly, placing related functions in their classes.
              // Fix code in general to make it less redundant.
              // Make tests.
@@ -72,8 +72,7 @@ namespace Battleship
             else
                 throw new NotImplementedException();
 
-            //switch board
-
+            // Switch board
             foreach (Button s in this.Controls.OfType<Button>())
             {
                 if (s.Name[3].ToString() != currentButton[3].ToString())
@@ -88,25 +87,7 @@ namespace Battleship
                     throw new NotImplementedException();
             }
 
-            //update scoreboard
-            
-            int rHpCount = 0;
-            for (int i = 0; i < 5; i++)
-            {
-                if (rightBoard.ShipHealths()[i].ToString() == "0")
-                    rHpCount++;
-            }
-
-            leftScore.Text = rHpCount.ToString();
-            
-            int lHpCount = 0;
-            for (int i = 0; i < 5; i++)
-            {
-                if (leftBoard.ShipHealths()[i].ToString() == "0")
-                    lHpCount++;
-            }
-
-            rightScore.Text = lHpCount.ToString();
+            UpdateScore();
 
             //check for win
 
@@ -122,7 +103,6 @@ namespace Battleship
 
                 Reset();
             }
-                
         }
 
         private void Reset()
@@ -139,6 +119,30 @@ namespace Battleship
             //pointless to allow saving a just-loaded game.
             rightScore.Text = "0";
             leftScore.Text = "0";
+        }
+
+        
+        private void UpdateScore()
+        {
+            //update scoreboard
+
+            int rHpCount = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                if (rightBoard.ShipHealths()[i].ToString() == "0")
+                    rHpCount++;
+            }
+
+            leftScore.Text = rHpCount.ToString();
+
+            int lHpCount = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                if (leftBoard.ShipHealths()[i].ToString() == "0")
+                    lHpCount++;
+            }
+
+            rightScore.Text = lHpCount.ToString();
         }
 
 
@@ -183,36 +187,29 @@ namespace Battleship
             Reset();
 
             string[] lines = System.IO.File.ReadLines(Application.StartupPath + "\\savegame.txt").ToArray();
-            //should ALWAYS be 10+10+5+5+1 lines
+            // Always will be 10+10+5+5+1 lines.
 
+            // Load the first 10 lines into an array for the right board.
             int[,] arrayR = new int[10, 10];
-
             for (int rowIndex = 0; rowIndex < 10; rowIndex++)
             {
                 for (int colIndex = 0; colIndex < 10; colIndex++)
-                {
                     arrayR[rowIndex, colIndex] = int.Parse(lines[rowIndex][colIndex].ToString());
-                }
             }
 
+            // Load the next 10 lines into an array for the left board.
             int[,] arrayL = new int[10, 10];
-
             for (int rowIndex = 0; rowIndex < 10; rowIndex++)
             {
                 for (int colIndex = 0; colIndex < 10; colIndex++)
-                {
-                    arrayL[rowIndex, colIndex] = int.Parse(lines[rowIndex+10][colIndex].ToString());
-                }
+                    arrayL[rowIndex, colIndex] = int.Parse(lines[rowIndex + 10][colIndex].ToString());
             }
 
-            //above should probably go into board class.
+            // Recreate boards with arrays.
+            leftBoard = new Board(arrayL);
+            rightBoard = new Board(arrayR);
 
-             leftBoard = new Board(arrayL);
-             rightBoard = new Board(arrayR);
-
-
-            ships = new List<Ship>();
-
+            // Add ship objects to left board.
             for (int i = 0; i < 5; i++)
             {
                 Ship ship = new Ship(true, int.Parse(lines[i + 20][0].ToString()), int.Parse(lines[i + 20][1].ToString()), int.Parse(lines[i + 20][2].ToString()), int.Parse(lines[i + 20][3].ToString()), int.Parse(lines[i + 20][4].ToString()));
@@ -221,6 +218,7 @@ namespace Battleship
                 ships.Add(ship);
             }
 
+            // Add ship objects to right board.
             for (int i = 0; i < 5; i++)
             {
                 Ship ship = new Ship(true, int.Parse(lines[i + 25][0].ToString()), int.Parse(lines[i + 25][1].ToString()), int.Parse(lines[i + 25][2].ToString()), int.Parse(lines[i + 25][3].ToString()), int.Parse(lines[i + 25][4].ToString()));
@@ -229,14 +227,10 @@ namespace Battleship
                 ships.Add(ship);
             }
 
-
-            //update all buttons based on array.
-
-            //this code is very bad and should be written in a way that's not super redundant. just PoC for now.
-
+            // Update all buttons based on array.
             foreach (Button s in this.Controls.OfType<Button>())
             {
-                if(!(s.Name[3].ToString() == "C" || s.Name[3].ToString() == "L"))
+                if (s.Name[3].ToString() == "R")
                 {
                     if (leftBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 0
                      || leftBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 1)
@@ -252,11 +246,7 @@ namespace Battleship
                         s.BackColor = Color.Red;
                     }
                 }
-            }
-
-            foreach (Button s in this.Controls.OfType<Button>())
-            {
-                if (!(s.Name[3].ToString() == "C" || s.Name[3].ToString() == "R"))
+                else if (s.Name[3].ToString() == "L")
                 {
                     if (rightBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 0
                      || rightBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 1)
@@ -272,8 +262,10 @@ namespace Battleship
                         s.BackColor = Color.Red;
                     }
                 }
+                // Else: Button is menu control.
             }
 
+            // Set the turn correctly.
             foreach (Button s in this.Controls.OfType<Button>())
             {
                 if (s.Name[3].ToString() == lines[30][0].ToString())
@@ -282,23 +274,7 @@ namespace Battleship
                 }
             }
 
-            int rHpCount = 0;
-            for (int i = 0; i < 5; i++)
-            {
-                if (rightBoard.ShipHealths()[i].ToString() == "0")
-                    rHpCount++;
-            }
-
-            leftScore.Text = rHpCount.ToString();
-
-            int lHpCount = 0;
-            for (int i = 0; i < 5; i++)
-            {
-                if (leftBoard.ShipHealths()[i].ToString() == "0")
-                    lHpCount++;
-            }
-
-            rightScore.Text = lHpCount.ToString();
+            UpdateScore();
         }
 
         private void btnSaveGame_Click(object sender, EventArgs e)
@@ -320,7 +296,7 @@ namespace Battleship
                 linesToWrite.Add(line.ToString());
             }
 
-            foreach (Ship ship in ships) //will not work unless ships are loaded.
+            foreach (Ship ship in ships)
             {
                 StringBuilder line = new StringBuilder();
                 for (int i = 0; i < 5; i++)
