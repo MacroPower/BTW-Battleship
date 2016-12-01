@@ -180,95 +180,102 @@ namespace Battleship
         private void btnLoadGame_Click(object sender, EventArgs e)
         {
             Reset();
-
-            string[] lines = System.IO.File.ReadLines(Application.StartupPath + "\\savegame.txt").ToArray();
-            // Always will be 10+10+5+5+1 lines.
-
-            // Load the first 10 lines into an array for the right board.
-            int[,] arrayR = new int[10, 10];
-            for (int rowIndex = 0; rowIndex < 10; rowIndex++)
+            try
             {
-                for (int colIndex = 0; colIndex < 10; colIndex++)
-                    arrayR[rowIndex, colIndex] = int.Parse(lines[rowIndex][colIndex].ToString());
-            }
+                string[] lines = System.IO.File.ReadLines(Application.StartupPath + "\\savegame.txt").ToArray();
+                // Always will be 10+10+5+5+1 lines.
 
-            // Load the next 10 lines into an array for the left board.
-            int[,] arrayL = new int[10, 10];
-            for (int rowIndex = 0; rowIndex < 10; rowIndex++)
-            {
-                for (int colIndex = 0; colIndex < 10; colIndex++)
-                    arrayL[rowIndex, colIndex] = int.Parse(lines[rowIndex + 10][colIndex].ToString());
-            }
-
-            // Recreate boards with arrays.
-            leftBoard = new Board(arrayL);
-            rightBoard = new Board(arrayR);
-
-            // Add ship objects to left board.
-            for (int i = 0; i < 5; i++)
-            {
-                Ship ship = new Ship(true, int.Parse(lines[i + 20][0].ToString()), int.Parse(lines[i + 20][1].ToString()), int.Parse(lines[i + 20][2].ToString()), int.Parse(lines[i + 20][3].ToString()), int.Parse(lines[i + 20][4].ToString()));
-                Console.WriteLine("Load: " + int.Parse(lines[i + 20][0].ToString()));
-                leftBoard.AddShip(ship);
-            }
-
-            // Add ship objects to right board.
-            for (int i = 0; i < 5; i++)
-            {
-                Ship ship = new Ship(true, int.Parse(lines[i + 25][0].ToString()), int.Parse(lines[i + 25][1].ToString()), int.Parse(lines[i + 25][2].ToString()), int.Parse(lines[i + 25][3].ToString()), int.Parse(lines[i + 25][4].ToString()));
-                Console.WriteLine("Load: " + int.Parse(lines[i + 25][0].ToString()));
-                rightBoard.AddShip(ship);
-            }
-
-            // Update all buttons based on array.
-            foreach (Button s in this.Controls.OfType<Button>())
-            {
-                if (s.Name[3].ToString() == "R")
+                // Load the first 10 lines into an array for the right board.
+                int[,] arrayR = new int[10, 10];
+                for (int rowIndex = 0; rowIndex < 10; rowIndex++)
                 {
-                    if (leftBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 0
-                     || leftBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 1)
+                    for (int colIndex = 0; colIndex < 10; colIndex++)
+                        arrayR[rowIndex, colIndex] = int.Parse(lines[rowIndex][colIndex].ToString());
+                }
+
+                // Load the next 10 lines into an array for the left board.
+                int[,] arrayL = new int[10, 10];
+                for (int rowIndex = 0; rowIndex < 10; rowIndex++)
+                {
+                    for (int colIndex = 0; colIndex < 10; colIndex++)
+                        arrayL[rowIndex, colIndex] = int.Parse(lines[rowIndex + 10][colIndex].ToString());
+                }
+
+                // Recreate boards with arrays.
+                leftBoard = new Board(arrayL);
+                rightBoard = new Board(arrayR);
+
+                // Add ship objects to left board.
+                for (int i = 0; i < 5; i++)
+                {
+                    Ship ship = new Ship(true, int.Parse(lines[i + 20][0].ToString()), int.Parse(lines[i + 20][1].ToString()), int.Parse(lines[i + 20][2].ToString()), int.Parse(lines[i + 20][3].ToString()), int.Parse(lines[i + 20][4].ToString()));
+                    Console.WriteLine("Load: " + int.Parse(lines[i + 20][0].ToString()));
+                    leftBoard.AddShip(ship);
+                }
+
+                // Add ship objects to right board.
+                for (int i = 0; i < 5; i++)
+                {
+                    Ship ship = new Ship(true, int.Parse(lines[i + 25][0].ToString()), int.Parse(lines[i + 25][1].ToString()), int.Parse(lines[i + 25][2].ToString()), int.Parse(lines[i + 25][3].ToString()), int.Parse(lines[i + 25][4].ToString()));
+                    Console.WriteLine("Load: " + int.Parse(lines[i + 25][0].ToString()));
+                    rightBoard.AddShip(ship);
+                }
+            
+                // Update all buttons based on array.
+                foreach (Button s in this.Controls.OfType<Button>())
+                {
+                    if (s.Name[3].ToString() == "R")
                     {
-                        s.UseVisualStyleBackColor = true;
+                        if (leftBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 0
+                         || leftBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 1)
+                        {
+                            s.UseVisualStyleBackColor = true;
+                        }
+                        else if (leftBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 2)
+                        {
+                            s.BackColor = Color.White;
+                        }
+                        else if (leftBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 3)
+                        {
+                            s.BackColor = Color.Red;
+                        }
                     }
-                    else if (leftBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 2)
+                    else if (s.Name[3].ToString() == "L")
                     {
-                        s.BackColor = Color.White;
+                        if (rightBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 0
+                         || rightBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 1)
+                        {
+                            s.UseVisualStyleBackColor = true;
+                        }
+                        else if (rightBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 2)
+                        {
+                            s.BackColor = Color.White;
+                        }
+                        else if (rightBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 3)
+                        {
+                            s.BackColor = Color.Red;
+                        }
                     }
-                    else if (leftBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 3)
+                    // Else: Button is menu control.
+                }
+
+                // Set the turn correctly.
+                foreach (Button s in this.Controls.OfType<Button>())
+                {
+                    if (s.Name[3].ToString() == lines[30][0].ToString()) //Set to 30
                     {
-                        s.BackColor = Color.Red;
+                        if (!(s.BackColor == Color.White || s.BackColor == Color.Red))
+                            s.Enabled = true;
                     }
                 }
-                else if (s.Name[3].ToString() == "L")
-                {
-                    if (rightBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 0
-                     || rightBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 1)
-                    {
-                        s.UseVisualStyleBackColor = true;
-                    }
-                    else if (rightBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 2)
-                    {
-                        s.BackColor = Color.White;
-                    }
-                    else if (rightBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 3)
-                    {
-                        s.BackColor = Color.Red;
-                    }
-                }
-                // Else: Button is menu control.
-            }
 
-            // Set the turn correctly.
-            foreach (Button s in this.Controls.OfType<Button>())
+                UpdateScore();
+            }
+            catch (System.IO.FileNotFoundException)
             {
-                if (s.Name[3].ToString() == lines[30][0].ToString()) //Set to 30
-                {
-                    if (!(s.BackColor == Color.White || s.BackColor == Color.Red))
-                        s.Enabled = true;
-                }
+                MessageBox.Show("No save file!");
+                Reset();
             }
-
-            UpdateScore();
         }
 
         private void btnSaveGame_Click(object sender, EventArgs e)

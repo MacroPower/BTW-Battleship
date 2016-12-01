@@ -54,6 +54,8 @@ namespace Battleship
                 button.BackColor = Color.Blue;
                 button.Enabled = false;
 
+                btnControlUndo.Enabled = true;
+
                 bool markYDown = false;
                 bool markXRight = false;
                 bool markYUp = false;
@@ -62,6 +64,7 @@ namespace Battleship
                 // Disable impossible buttons and find potential collisions.
                 foreach (Button s in this.Controls.OfType<Button>())
                 {
+                    if (s.Name[3].ToString() == "C") continue;
                     if (!(int.Parse(s.Name[3].ToString()) == int.Parse(button.Name[3].ToString()) + sSize - 1 
                      && int.Parse(s.Name[4].ToString()) == int.Parse(button.Name[4].ToString())
                      || int.Parse(s.Name[4].ToString()) == int.Parse(button.Name[4].ToString()) + sSize - 1
@@ -116,6 +119,7 @@ namespace Battleship
                 // If there is a collision, prevent it from happening.
                 foreach (Button s in this.Controls.OfType<Button>())
                 {
+                    if (s.Name[3].ToString() == "C") continue;
                     if (markYDown)
                     {
                         for (int x = xStart; x < sSize + xStart; x++)
@@ -188,6 +192,7 @@ namespace Battleship
                     {
                         foreach (Button s in this.Controls.OfType<Button>())
                         {
+                            if (s.Name[3].ToString() == "C") continue;
                             if (int.Parse(s.Name[3].ToString()) == xStart
                              && int.Parse(s.Name[4].ToString()) == top)
                             {
@@ -202,6 +207,7 @@ namespace Battleship
                     {
                         foreach (Button s in this.Controls.OfType<Button>())
                         {
+                            if (s.Name[3].ToString() == "C") continue;
                             if (int.Parse(s.Name[4].ToString()) == yStart
                              && int.Parse(s.Name[3].ToString()) == top)
                             {
@@ -224,8 +230,28 @@ namespace Battleship
                 }
 
                 ship = new Ship(nsSize, xStart, xEnd, yStart, yEnd);
+                
                 this.Close();
             }
+        }
+
+        private void btnControlUndo_Click(object sender, EventArgs e)
+        {
+            clicked = false;
+            foreach (Button s in this.Controls.OfType<Button>())
+            {
+                if (s.BackColor != Color.Gray)
+                {
+                    s.Enabled = true;
+                }
+
+                if (s.BackColor == Color.Blue)
+                {
+                    s.Enabled = true;
+                    s.UseVisualStyleBackColor = true;
+                }
+            }
+            btnControlUndo.Enabled = false;
         }
     }
 }

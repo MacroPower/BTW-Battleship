@@ -149,6 +149,7 @@
             this.btn92 = new System.Windows.Forms.Button();
             this.btn83 = new System.Windows.Forms.Button();
             this.btn82 = new System.Windows.Forms.Button();
+            this.btnControlUndo = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // titleLabel
@@ -1240,11 +1241,23 @@
             this.btn82.UseVisualStyleBackColor = true;
             this.btn82.Click += new System.EventHandler(this.button_Click);
             // 
+            // btnControlUndo
+            // 
+            this.btnControlUndo.Enabled = false;
+            this.btnControlUndo.Location = new System.Drawing.Point(250, 4);
+            this.btnControlUndo.Name = "btnControlUndo";
+            this.btnControlUndo.Size = new System.Drawing.Size(75, 23);
+            this.btnControlUndo.TabIndex = 317;
+            this.btnControlUndo.Text = "Undo";
+            this.btnControlUndo.UseVisualStyleBackColor = true;
+            this.btnControlUndo.Click += new System.EventHandler(this.btnControlUndo_Click);
+            // 
             // AddShipsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(345, 355);
+            this.Controls.Add(this.btnControlUndo);
             this.Controls.Add(this.btn99);
             this.Controls.Add(this.btn98);
             this.Controls.Add(this.btn89);
@@ -1495,5 +1508,6 @@
         private System.Windows.Forms.Button btn92;
         private System.Windows.Forms.Button btn83;
         private System.Windows.Forms.Button btn82;
+        private System.Windows.Forms.Button btnControlUndo;
     }
 }
