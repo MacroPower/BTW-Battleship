@@ -17,47 +17,41 @@ namespace Battleship.Test
         public void ReadMissOnEmptyBoard()
         {
             Board test = new Board();
-            test.Shot(6,6);
-            Assert.AreEqual(false);
+
+            for (int y = 0; y < 10; y++)
+                for (int x = 0; x < 10; x++)
+                    Assert.AreEqual(test.Shot(x, y), 2);
         }
 
         [TestMethod]
         public void PlaceValidShip()
         {
-            Ship test = new Ship(4, 2, 2, 5, 2);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(Exception), "Can't start without placing all ships.")]
-        public void ThrowIfStartedWithoutFullTeam()
-        {
-            Ship test1 = new Ship(4,2,2,5,2);
-            Ship test2 = new Ship(3,2,3,4,3);
-            Ship test3 = new Ship(2,2,4,2,5);
-            //not a full team
-            Assert.AreEqual(false); //"Place all ships before starting.")
+            Board test = new Board();
+            Ship testShip = new Ship(4, 0, 0, 0, 3);
+            test.AddShip(testShip);
+            Assert.AreEqual(test.GetCellStatus(0,0), 1);
         }
 
         [TestMethod]
         public void ShowAHit()
         {
-            Ship test1 = new Ship(4, 2, 2, 5, 2);
             Board test = new Board();
-            test.Shot(2,2);
-            Assert.AreEqual(true);
+            Ship testShip = new Ship(4, 0, 0, 0, 3);
+            test.AddShip(testShip);
+            Assert.AreEqual(test.Shot(0, 0), 3);
         }
-        //show miss
+
         [TestMethod]
         public void ShowAMiss()
         {
             Board test = new Board();
-            Ship test1 = new Ship(4, 2, 2, 5, 2);
-            test.Shot(6, 6);
-            Assert.AreEqual(false);
+            Ship testShip = new Ship(4, 0, 0, 0, 3);
+            test.AddShip(testShip);
+            Assert.AreEqual(test.Shot(1, 1), 2);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception), "Not a valid ship placement.")]
+        [ExpectedException(typeof(IndexOutOfRangeException), "Not a valid ship placement.")]
         public void ThrowOnInvalidPlacement()
         {
             Board test = new Board();
@@ -65,7 +59,7 @@ namespace Battleship.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception), "Already fired at these coordinates.")]
+        [ExpectedException(typeof(FormatException), "Already fired at these coordinates.")]
         public void ThrowOnRedundantShot()
         {
             Board test = new Board();
@@ -75,49 +69,15 @@ namespace Battleship.Test
 
         [TestMethod]
         public void GiveWinWhenAllShipsDestroyed()
-        {
+        { //this also covers DestroyFullyHitShip()
             Board test = new Board();
-
-            Ship test1 = new Ship(4, 2, 2, 5, 2);
-            test.Shot(2, 2);
-            test.Shot(3, 2);
-            test.Shot(4, 2);
-            test.Shot(5, 2);
-
-            Ship test2 = new Ship(3, 2, 3, 4, 3);
-            test.Shot(2, 3);
-            test.Shot(3, 3);
-            test.Shot(4, 3);
-
-            Ship test3 = new Ship(3, 2, 4, 4, 4);
-            test.Shot(2, 4);
-            test.Shot(3, 4);
-            test.Shot(4, 4);
-
-            Ship test4 = new Ship(2, 9, 10, 10, 10);
-            test.Shot(9, 10);
-            test.Shot(10, 10);
-
-            Ship test5 = new Ship(5, 2, 6, 6, 6);
-            test.Shot(2, 6);
-            test.Shot(3, 6);
-            test.Shot(4, 6);
-            test.Shot(5, 6);
-            test.Shot(6, 6);
-
-            Assert.AreEqual(true);
-        }
-
-        [TestMethod]
-        public void DestroyFullyHitShip()
-        {
-            Board test = new Board();
-            Ship test1 = new Ship(4, 2, 2, 5, 2);
-            test.Shot(2, 2);
-            test.Shot(3, 2);
-            test.Shot(4, 2);
-            test.Shot(5, 2);
-            Assert.AreEqual(true);
+            Ship testShip = new Ship(4, 0, 0, 0, 3);
+            test.AddShip(testShip);
+            test.Shot(0, 0);
+            test.Shot(0, 1);
+            test.Shot(0, 2);
+            test.Shot(0, 3);
+            Assert.AreEqual(test.ShipHealths()[0], 0);
         }
     }
 }

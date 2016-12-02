@@ -80,7 +80,7 @@ namespace Battleship
 
             if (status > 1)
             {
-                throw new NotImplementedException();
+                throw new FormatException();
                 //already a shot here.
             }
             else if (status == 1)

@@ -1,0 +1,9 @@
+C:\Users\macropower\Documents\BTW-working\New folder\Battleship.Test\obj\Debug\Battleship.Test.csprojResolveAssemblyReference.cache
+C:\Users\macropower\Documents\BTW-working\New folder\Battleship.Test\bin\Debug\Battleship.Test.dll
+C:\Users\macropower\Documents\BTW-working\New folder\Battleship.Test\bin\Debug\Battleship.Test.pdb
+C:\Users\macropower\Documents\BTW-working\New folder\Battleship.Test\bin\Debug\Battleship.exe
+C:\Users\macropower\Documents\BTW-working\New folder\Battleship.Test\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\macropower\Documents\BTW-working\New folder\Battleship.Test\bin\Debug\Battleship.pdb
+C:\Users\macropower\Documents\BTW-working\New folder\Battleship.Test\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
+C:\Users\macropower\Documents\BTW-working\New folder\Battleship.Test\obj\Debug\Battleship.Test.dll
+C:\Users\macropower\Documents\BTW-working\New folder\Battleship.Test\obj\Debug\Battleship.Test.pdb
