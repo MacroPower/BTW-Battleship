@@ -230,7 +230,7 @@ namespace Battleship
                 }
 
                 ship = new Ship(nsSize, xStart, xEnd, yStart, yEnd);
-                
+                btnControlUndo.Enabled = false;
                 this.Close();
             }
         }

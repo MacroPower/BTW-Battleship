@@ -70,19 +70,20 @@ namespace Battleship
                 throw new NotImplementedException();
 
             // Switch board
+
+            UpdateBoard();
+
             foreach (Button s in this.Controls.OfType<Button>())
             {
-                if (s.Name[3].ToString() != currentButton[3].ToString())
-                {
-                    if (!(s.BackColor == Color.White || s.BackColor == Color.Red))
-                        s.Enabled = true;
-                }
-                else if (s.Name[3].ToString() == currentButton[3].ToString())
+                if (s.Name[3].ToString() == "C") continue;
+                if (turn && s.Name[3].ToString() == "L")
                 {
                     s.Enabled = false;
                 }
-                else
-                    throw new NotImplementedException();
+                else if (!turn && s.Name[3].ToString() == "R")
+                {
+                    s.Enabled = false;
+                }
             }
             turn = !turn;
 
@@ -143,6 +144,52 @@ namespace Battleship
             rightScore.Text = lHpCount.ToString();
         }
 
+        private void UpdateBoard()
+        {
+            // Update all buttons based on array.
+            foreach (Button s in this.Controls.OfType<Button>())
+            {
+                if (s.Name[3].ToString() == "R")
+                {
+                    if (leftBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 0
+                     || leftBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 1)
+                    {
+                        s.UseVisualStyleBackColor = true;
+                        s.Enabled = true;
+                    }
+                    else if (leftBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 2)
+                    {
+                        s.BackColor = Color.White;
+                        s.Enabled = false;
+                    }
+                    else if (leftBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 3)
+                    {
+                        s.BackColor = Color.Red;
+                        s.Enabled = false;
+                    }
+                }
+                else if (s.Name[3].ToString() == "L")
+                {
+                    if (rightBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 0
+                     || rightBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 1)
+                    {
+                        s.UseVisualStyleBackColor = true;
+                        s.Enabled = true;
+                    }
+                    else if (rightBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 2)
+                    {
+                        s.BackColor = Color.White;
+                        s.Enabled = false;
+                    }
+                    else if (rightBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 3)
+                    {
+                        s.BackColor = Color.Red;
+                        s.Enabled = false;
+                    }
+                }
+                // Else: Button is menu control.
+            }
+        }
 
         private void btnNewGame_Click(object sender, EventArgs e)
         {
@@ -179,7 +226,6 @@ namespace Battleship
 
         private void btnLoadGame_Click(object sender, EventArgs e)
         {
-            Reset();
             try
             {
                 string[] lines = System.IO.File.ReadLines(Application.StartupPath + "\\savegame.txt").ToArray();
@@ -220,54 +266,28 @@ namespace Battleship
                     Console.WriteLine("Load: " + int.Parse(lines[i + 25][0].ToString()));
                     rightBoard.AddShip(ship);
                 }
-            
-                // Update all buttons based on array.
-                foreach (Button s in this.Controls.OfType<Button>())
-                {
-                    if (s.Name[3].ToString() == "R")
-                    {
-                        if (leftBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 0
-                         || leftBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 1)
-                        {
-                            s.UseVisualStyleBackColor = true;
-                        }
-                        else if (leftBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 2)
-                        {
-                            s.BackColor = Color.White;
-                        }
-                        else if (leftBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 3)
-                        {
-                            s.BackColor = Color.Red;
-                        }
-                    }
-                    else if (s.Name[3].ToString() == "L")
-                    {
-                        if (rightBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 0
-                         || rightBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 1)
-                        {
-                            s.UseVisualStyleBackColor = true;
-                        }
-                        else if (rightBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 2)
-                        {
-                            s.BackColor = Color.White;
-                        }
-                        else if (rightBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 3)
-                        {
-                            s.BackColor = Color.Red;
-                        }
-                    }
-                    // Else: Button is menu control.
-                }
+
+                Reset();
+
+                UpdateBoard();
 
                 // Set the turn correctly.
                 foreach (Button s in this.Controls.OfType<Button>())
                 {
-                    if (s.Name[3].ToString() == lines[30][0].ToString()) //Set to 30
+                    if (s.Name[3].ToString() == "C")
                     {
-                        if (!(s.BackColor == Color.White || s.BackColor == Color.Red))
-                            s.Enabled = true;
+                        s.UseVisualStyleBackColor = true;
+                        s.Enabled = true;
+                        continue;
                     }
+                    if (s.Name[3].ToString() != lines[30][0].ToString())
+                        s.Enabled = false;
                 }
+
+                if (lines[30][0].ToString() == "L")
+                    turn = true;
+                else
+                    turn = false;
 
                 UpdateScore();
             }
