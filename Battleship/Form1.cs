@@ -21,14 +21,6 @@ namespace Battleship
             InitializeComponent();
         }
 
-        //TODO: 
-             // Add error handling.
-             // Make a better end-game screen.
-             // Distribute code more correctly, placing related functions in their classes.
-             // Fix code in general to make it less redundant.
-             // Make tests.
-             // Don't break anything?
-
         private void Form1_Load(object sender, EventArgs e)
         {
             Reset();
@@ -149,7 +141,7 @@ namespace Battleship
             // Update all buttons based on array.
             foreach (Button s in this.Controls.OfType<Button>())
             {
-                if (s.Name[3].ToString() == "R")
+                if (s.Name[3].ToString() == "R") // both these blocks are the same uuuuuuguggghghghhhhhh
                 {
                     if (leftBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 0
                      || leftBoard.GetCellStatus(int.Parse(s.Name[4].ToString()), int.Parse(s.Name[5].ToString())) == 1)
@@ -278,7 +270,7 @@ namespace Battleship
                     {
                         s.UseVisualStyleBackColor = true;
                         s.Enabled = true;
-                        continue;
+                        continue; //kill meeeee
                     }
                     if (s.Name[3].ToString() != lines[30][0].ToString())
                         s.Enabled = false;
